@@ -24,7 +24,8 @@ The project originated from my IB Mathematics AA HL Internal Assessment and is b
 
 * MATLAB Stability Simulator
 * User Weight Analysis
-* Dynamic Wave Disturbance Model
+* Dynamic Stability Analysis
+* Wave Disturbance Modeling
 * Interactive Visualization
 
 ## Author
