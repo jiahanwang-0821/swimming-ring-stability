@@ -2,13 +2,14 @@
 
 This project investigates the stability of swimming rings through mathematical modeling, buoyancy analysis, and computational simulation.
 
-The project originated from my IB Mathematics AA HL Internal Assessment and is being extended into a long-term applied mathematics project.
+The project originated from my IB Mathematics AA HL Internal Assessment and is being extended into an ongoing applied mathematics project.
 
 ## Research Questions
 
 * How does the geometry of a swimming ring affect its stability?
 * How do buoyancy and gravity interact in floating systems?
 * What factors determine the critical tilt angle of a swimming ring?
+* How can computational simulation be used to evaluate stability?
 
 ## Mathematical Topics
 
@@ -18,7 +19,7 @@ The project originated from my IB Mathematics AA HL Internal Assessment and is b
 * Buoyancy Analysis
 * Center of Gravity
 * Center of Buoyancy
-* Stability Modeling
+* Static Stability Modeling
 
 ## Future Development
 
@@ -30,7 +31,7 @@ The project originated from my IB Mathematics AA HL Internal Assessment and is b
 
 ## Author
 
-Tiffany Wang
+Jiahan Wang
 
-Applied Mathematics Student
-University of California, Santa Barbara
+* Applied Mathematics Student
+* University of California, Santa Barbara
