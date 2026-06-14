@@ -27,7 +27,7 @@ The project originated from my IB Mathematics AA HL Internal Assessment and is b
 * User Weight Analysis
 * Dynamic Stability Analysis
 * Wave Disturbance Modeling
-* Interactive Visualization
+* Comparative Analysis of Different Floating Structures
 
 ## Author
 
