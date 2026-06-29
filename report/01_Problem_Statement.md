@@ -4,7 +4,7 @@ Swimming rings are common floating devices used in swimming pools, beaches, and 
 
 This project originated from my IB Mathematics AA HL Internal Assessment, where I calculated the volume of different swimming rings and analyzed their stability using buoyancy and geometric modeling. In the original work, the main focus was on static stability: how the relative positions of the gravity center (GC) and buoyancy center (BC) determine whether a tilted swimming ring can return to a stable state.
 
-This GitHub project extends that work into an ongoing applied mathematics project. Instead of only analyzing one fixed tilted state, the project uses MATLAB visualization and interactive simulation to study how the tilt angle, torus geometry, and density ratio influence stability. The long-term goal is to further extend the model from static stability to dynamic stability, including oscillation under wave disturbance.
+This GitHub project extends that work into an ongoing applied mathematics project. Instead of analyzing only one fixed tilted state, this project extends the original model through MATLAB visualization and interactive simulation, allowing the effects of tilt angle and torus geometry on stability to be explored interactively. The long-term goal is to further extend the model from static stability to dynamic stability, including oscillation under wave disturbance.
 
 The central research questions are:
 
