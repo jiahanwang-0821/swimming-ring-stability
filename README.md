@@ -11,23 +11,18 @@ The project originated from my IB Mathematics AA HL Internal Assessment and is b
 * What factors determine the critical tilt angle of a swimming ring?
 * How can computational simulation be used to evaluate stability?
 
-## Mathematical Topics
+# Current Progress
 
-* Torus Geometry
-* Disk Method
-* Pappus's Centroid Theorem
-* Buoyancy Analysis
-* Center of Gravity
-* Center of Buoyancy
-* Static Stability Modeling
+* Static stability model
+* MATLAB visualization
+* Interactive stability simulator
 
 ## Future Development
 
-* MATLAB Stability Simulator
-* User Weight Analysis
-* Dynamic Stability Analysis
-* Wave Disturbance Modeling
-* Comparative Analysis of Different Floating Structures
+* Dynamic stability modeling
+* Second-order differential equation model
+* Wave disturbance simulation
+* Comparative analysis of different floating structures
 
 ## Author
 
