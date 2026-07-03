@@ -2,7 +2,7 @@
 
 ## 2.1 Geometric Representation
 
-To analyze the stability of a swimming ring, an appropriate mathematical representation is first required. Although commercial swimming rings may differ in size, material, and decorative appearance, their overall geometry can be reasonably approximated by a torus. This simplification preserves the essential geometric characteristics while allowing analytical calculations of volume, buoyancy, and stability.
+To analyze the stability of a swimming ring, an appropriate mathematical representation is first required. Although commercial swimming rings may differ in size, material, and decorative appearance, their overall geometry can be reasonably approximated by a torus. This simplification preserves the essential geometric characteristics while allowing analytical calculations of volume, buoyancy, and stability. These features are neglected because they greatly increase the complexity of the mathematical model while contributing little to the primary objective of the stability analysis.
 
 An ideal torus is defined by two independent geometric parameters:
 
@@ -11,7 +11,7 @@ An ideal torus is defined by two independent geometric parameters:
 
 These two parameters completely determine the geometry of the swimming ring and serve as the primary design variables throughout this project. By varying (R) and (r), the influence of geometry on buoyancy, restoring moment, and critical tilt angle can be investigated systematically.
 
-Unlike the original IB Mathematics AA HL Internal Assessment, which primarily focused on deriving the volume of a torus, this project uses the torus as the foundation for a broader applied mathematics model. The geometric representation is therefore regarded as the starting point for subsequent analyses of buoyancy, static stability, computational visualization, and dynamic stability.
+In the original IB Mathematics AA HL Internal Assessment, the torus model was primarily used to derive the volume of the swimming ring. In this project, the same geometric representation serves as the foundation for a broader stability model, which is further extended through computational visualization and future dynamic analysis.
 
 Figure 1 illustrates the torus model used throughout this project.
 
@@ -25,9 +25,9 @@ V = 2π²Rr²
 
 where R is the major radius and r is the tube radius.
 
-This equation was derived independently using both the Disk Method and Pappus's Centroid Theorem in the original IA, providing mutual verification of the mathematical model.
+The volume formula was derived in the original IB Mathematics AA HL Internal Assessment using both the Disk Method and Pappus' Centroid Theorem. Since both approaches produce the same result, the equation is adopted directly in the present project. Consequently, changing either the major radius or the tube radius changes the displaced volume and therefore influences the buoyancy characteristics of the swimming ring.
 
-In this project, the volume equation is primarily used to estimate buoyancy and displaced water volume rather than serving as the final objective. The emphasis therefore shifts from volume calculation to stability analysis.
+In this project, the volume equation is primarily used to estimate buoyancy and displaced water volume rather than serving as the final objective. Rather than serving as the final objective, the volume equation provides the geometric basis for the subsequent buoyancy and stability analyses. Once the geometric properties have been established, the buoyancy acting on the swimming ring can be determined using Archimedes' principle.
 
 ## 2.3 Static Equilibrium
 
@@ -41,7 +41,7 @@ where the buoyant force equals the total weight of the swimming ring.
 
 When a user enters the swimming ring, the total weight increases, requiring a larger displaced volume in order to maintain equilibrium. As the displaced volume increases, the buoyancy center also changes its position.
 
-Therefore, static equilibrium is determined not only by the balance between buoyancy and gravity, but also by the relative positions of their lines of action.
+Therefore, simply balancing the weight and buoyancy is not sufficient to guarantee stability. The relative positions of the two forces must also be considered.
 
 ## 2.4 Centers of Gravity and Buoyancy
 
@@ -51,7 +51,7 @@ The center of gravity (GC) represents the resultant location of the weight actin
 
 The center of buoyancy (BC) is defined as the centroid of the displaced water volume. Unlike the gravity center, the buoyancy center changes its position whenever the swimming ring tilts.
 
-As the inclination angle increases, the buoyancy center moves toward the submerged side of the swimming ring, producing a separation between the two centers.
+As the inclination angle increases, the buoyancy center moves toward the submerged side of the swimming ring, producing a separation between the two centers. This changing position of the buoyancy center is the key reason why a tilted swimming ring either returns to equilibrium or continues rotating.
 
 Figure 1 illustrates the relative positions of GC and BC in a tilted swimming ring.
 
