@@ -21,7 +21,9 @@ The geometric properties of the swimming ring directly determine its buoyancy an
 
 For an ideal torus, the volume can be expressed as
 
-V = 2π²Rr²
+$$
+V = 2\pi^2Rr^2
+$$
 
 where R is the major radius and r is the tube radius.
 
