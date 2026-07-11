@@ -11,7 +11,7 @@ The project originated from my IB Mathematics AA HL Internal Assessment and is b
 * What factors determine the critical tilt angle of a swimming ring?
 * How can computational simulation be used to evaluate stability?
 
-# Current Progress
+## Current Progress
 
 * Static stability model
 * MATLAB visualization
