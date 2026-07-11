@@ -1,5 +1,7 @@
 # Static Stability Model
 
+In the original IA, the inclination angle was denoted by $\omega$ because $\theta$ had already been used in an earlier geometric derivation. In this project, the inclination angle will be denoted by $\theta$ throughout this project to avoid confusion with angular velocity and angular frequency.
+
 ## 2.1 Geometric Representation
 
 To analyze the stability of a swimming ring, an appropriate mathematical representation is first required. Although commercial swimming rings may differ in size, material, and decorative appearance, their overall geometry can be reasonably approximated by a torus. This simplification preserves the essential geometric characteristics while allowing analytical calculations of volume, buoyancy, and stability. These features are neglected because they greatly increase the complexity of the mathematical model while contributing little to the primary objective of the stability analysis.
@@ -13,7 +15,7 @@ These two parameters completely determine the geometry of the swimming ring and 
 
 In the original IB Mathematics AA HL Internal Assessment, the torus model was primarily used to derive the volume of the swimming ring. In this project, the same geometric representation serves as the foundation for a broader stability model, which is further extended through computational visualization and future dynamic analysis.
 
-Figure 1 illustrates the torus model used throughout this project.
+Figure 1 illustrates the torus geometry together with the relative positions of the center of gravity (GC) and center of buoyancy (BC) used throughout this project.
 
 ## 2.2 Geometric Properties
 
@@ -25,7 +27,10 @@ $$
 V = 2\pi^2Rr^2
 $$
 
-where R is the major radius and r is the tube radius.
+where
+
+* $R$ is the major radius.
+* $r$ is the tube radius.
 
 The volume formula was derived in the original IB Mathematics AA HL Internal Assessment using both the Disk Method and Pappus' Centroid Theorem. Since both approaches produce the same result, the equation is adopted directly in the present project. Consequently, changing either the major radius or the tube radius changes the displaced volume and therefore influences the buoyancy characteristics of the swimming ring.
 
@@ -37,9 +42,11 @@ According to Archimedes' principle, a floating swimming ring remains in equilibr
 
 When no external disturbance is applied,
 
-Fb = W
+$$
+F_b=W
+$$
 
-where the buoyant force equals the total weight of the swimming ring.
+where the buoyant force equals the total weight of the swimming ring. This condition describes vertical force equilibrium only and does not necessarily imply rotational stability.
 
 When a user enters the swimming ring, the total weight increases, requiring a larger displaced volume in order to maintain equilibrium. As the displaced volume increases, the buoyancy center also changes its position.
 
@@ -47,41 +54,84 @@ Therefore, simply balancing the weight and buoyancy is not sufficient to guarant
 
 ## 2.4 Centers of Gravity and Buoyancy
 
-Two characteristic points determine the stability of the floating system.
+Two characteristic points are used to describe the stability of the floating system.
 
-The center of gravity (GC) represents the resultant location of the weight acting on the swimming ring. For a swimming ring with uniform density, the gravity center coincides with the geometric center of the torus.
+The center of gravity (GC) represents the effective point through which the weight of the swimming ring acts. For a perfectly uniform and symmetric torus, the center of gravity coincides with the geometric center. However, if the density varies across the ring, the center of gravity may shift away from the geometric center.
 
-The center of buoyancy (BC) is defined as the centroid of the displaced water volume. Unlike the gravity center, the buoyancy center changes its position whenever the swimming ring tilts.
+The center of buoyancy (BC) is the centroid of the displaced water volume. Unlike the center of gravity, the center of buoyancy changes position as the swimming ring tilts because the submerged portion of the ring changes.
 
-As the inclination angle increases, the buoyancy center moves toward the submerged side of the swimming ring, producing a separation between the two centers. This changing position of the buoyancy center is the key reason why a tilted swimming ring either returns to equilibrium or continues rotating.
+Figure 1 provides one representative tilted configuration. It illustrates how the two centers may become separated when the swimming ring is inclined. The interactive MATLAB simulator extends this static image by showing how the modeled BC position changes as the tilt angle varies.
 
-Figure 1 illustrates the relative positions of GC and BC in a tilted swimming ring.
+## 2.5 Moment Balance
 
-## 2.5 Restoring Moment
+When the swimming ring tilts, the buoyant force acts upward through BC, while the weight acts downward through GC. If these forces do not act along the same vertical line, they generate a moment about the ring.
 
-The separation between the center of gravity and the center of buoyancy generates a restoring moment.
+In the original IA, the moment was modeled as
 
-When the buoyancy center shifts horizontally while the gravity center remains approximately fixed, the buoyant force and the gravitational force no longer act along the same vertical line. The resulting moment tends to rotate the swimming ring back toward its equilibrium position.
+$$
+M_b=
+\rho_{\text{water}}gV_{\text{displaced}}
+\times \sqrt{(x_B-x_G)^2+(z_B-z_G)^2}
+-mg|z_G|.
+$$
 
-The restoring moment therefore provides an important measure of static stability.
+The limiting condition was taken to occur when
 
-A larger restoring moment generally indicates that the swimming ring can recover more effectively after a small disturbance, whereas a smaller restoring moment implies that the system is more susceptible to overturning.
+$$
+M_b=0.
+$$
+
+The critical condition is reached when the restoring moment becomes zero. Under this simplified model, a positive restoring tendency indicates that the ring may return toward equilibrium, while the limiting case $$M_b=0$$ is used to estimate the maximum recoverable inclination.
+
+This moment model should be interpreted as a simplified static approximation rather than a complete hydrodynamic description. It does not include fluid inertia, damping, waves, or rapid rotational motion.
 
 ## 2.6 Critical Tilt Angle
 
-One of the most important quantities in this project is the critical tilt angle.
+The critical tilt angle is defined here as the maximum inclination predicted by the simplified static model from which the swimming ring can still recover.
 
-The critical tilt angle represents the maximum inclination from which the swimming ring is still able to return to equilibrium under the restoring moment.
+For the density-distribution model, the critical angle satisfies
 
-For the baseline swimming ring considered in the original IA, the estimated critical angle is approximately
+$$
+\cos(\theta_{\text{critical}})=
+\frac{\rho_0}{\rho_{\text{water}}}
+\left(
+1+\frac{\Delta\rho}{2\rho_0}
+\right),
+$$
 
-53.1°
+where
 
-When the inclination angle remains below this value, the restoring moment is sufficient to recover the original floating position.
+* $$\rho_0$$ is the baseline density,
+* $$\Delta\rho$$ is the modeled density variation, and
+* $$\rho_{\text{water}}$$ is the density of water.
 
-When the inclination exceeds the critical angle, the restoring effect becomes insufficient and the swimming ring is expected to capsize instead of returning to equilibrium.
+Using the baseline values
 
-This critical angle serves as the principal stability criterion throughout this GitHub project and is also used in the interactive MATLAB simulator developed in the next section.
+$$
+\rho_0=600\ \mathrm{kg/m^3},
+\qquad
+\Delta\rho=200\ \mathrm{kg/m^3},
+\qquad
+\rho_{\text{water}}=1000\ \mathrm{kg/m^3},
+$$
+
+the critical angle is
+
+$$
+\theta_{\text{critical}}=
+\arccos\left[
+\frac{600}{1000}
+\left(
+1+\frac{200}{1200}
+\right)
+\right]
+\approx 53.1^\circ.
+$$
+
+Therefore, $$53.1^\circ$$ is not a universal critical angle for all swimming rings. It is the baseline result obtained from the particular density assumptions used in the original IA.
+
+In the current project, this value is used as a reference point for the MATLAB simulator. The simulator then explores how changes in geometric and model parameters may affect the estimated stability boundary. These additional parameter relationships are treated as computational extensions.
+
 
 ## 2.7 MATLAB Visualization
 
@@ -91,4 +141,8 @@ The simulator displays the torus geometry, water surface, center of gravity (GC)
 
 Unlike the original IA, which analyzed only one representative inclination, the interactive simulator allows the tilt angle and geometric parameters to be adjusted continuously. This visualization provides a more intuitive understanding of how geometry influences buoyancy, restoring moment, and the critical tilt angle.
 
-The MATLAB implementation also establishes the foundation for the dynamic stability model presented in the following chapter.
+The MATLAB implementation also provides the computational bridge between the analytical model developed in this chapter and the dynamic stability model introduced in the next chapter.
+
+## 2.8 Limitations of the Static Model
+
+The static model developed in this chapter assumes still water and quasi-static motion. External disturbances such as waves, wind, and rapid user movements are neglected. These assumptions allow the relationship between geometry and stability to be analyzed clearly, but they also limit the applicability of the model in realistic environments. The next chapter extends this framework by introducing computational visualization, while future work will extend the present static model by introducing a time-dependent second-order differential equation to investigate wave-induced oscillatory motion.
