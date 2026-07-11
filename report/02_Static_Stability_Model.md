@@ -43,12 +43,14 @@ According to Archimedes' principle, a floating swimming ring remains in equilibr
 When no external disturbance is applied,
 
 $$
-F_b=W
+F_b = W
 $$
 
-where the buoyant force equals the total weight of the swimming ring. This condition describes vertical force equilibrium only and does not necessarily imply rotational stability.
+where $F_b$ is the buoyant force and $W$ is the total weight acting on the swimming ring.
 
-When a user enters the swimming ring, the total weight increases, requiring a larger displaced volume in order to maintain equilibrium. As the displaced volume increases, the buoyancy center also changes its position.
+This condition describes **vertical force equilibrium only** and does not necessarily imply rotational stability.
+
+When a user enters the swimming ring, the total weight increases, requiring a larger displaced volume in order to maintain equilibrium. As the displaced volume increases, the center of buoyancy also changes its position.
 
 Therefore, simply balancing the weight and buoyancy is not sufficient to guarantee stability. The relative positions of the two forces must also be considered.
 
