@@ -34,31 +34,31 @@ The total moment acting on the swimming ring consists of three components:
 * damping moment,
 * wave-induced external moment.
 
-Then, we know that,
+The governing equation can therefore be written as
 
 $$
 I\ddot{\theta} + c\dot{\theta} + k\theta =
 M_{\mathrm{wave}}(t)
 $$
 
-Assume the period of waves is
+Assuming that the wave-induced moment is approximately periodic,
 
 $$
 M_{\mathrm{wave}}(t) =
-A\times \sin(\omega t)
+A\times \sin(\Omega t)
 $$
 
-Then the equation could be 
+Substituting the external moment into the governing equation gives
 
 $$
 I\ddot{\theta} + c\dot{\theta} + k\theta =
-A\times \sin(\omega t)
+A\times \sin(\Omega t)
 $$
 
-Divided by $I$ on both sides, the equation becomes
+Dividing both sides by the moment of inertia $I$ yields, the equation becomes
 
 $$
-\ddot{\theta} + \frac{c}{I}\dot{\theta} + \frac{k}{I}\theta =  \frac{A}{I}\sin(\omega t)
+\ddot{\theta} + \frac{c}{I}\dot{\theta} + \frac{k}{I}\theta =  \frac{A}{I}\sin(\Omega t)
 $$
 
 
