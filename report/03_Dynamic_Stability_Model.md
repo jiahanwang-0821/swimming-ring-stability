@@ -44,21 +44,23 @@ $$
 Assuming that the wave-induced moment is approximately periodic,
 
 $$
-M_{\mathrm{wave}}(t) =
-A\times \sin(\Omega t)
+M_{\mathrm{wave}}(t)= M_0\sin(\Omega t+\phi)
 $$
+
+where M_{0}is the amplitude of the wave-induced moment, $\Omega$ is the angular frequency of the waves, and $\phi$ is the initial phase.
+Without loss of generality, the present project sets ϕ=0 for simplicity.
 
 Substituting the external moment into the governing equation gives
 
 $$
 I\ddot{\theta} + c\dot{\theta} + k\theta =
-A\times \sin(\Omega t)
+M_0\sin(\Omega t)
 $$
 
 Dividing both sides by the moment of inertia $I$ yields, the equation becomes
 
 $$
-\ddot{\theta} + \frac{c}{I}\dot{\theta} + \frac{k}{I}\theta =  \frac{A}{I}\sin(\Omega t)
+\ddot{\theta} + \frac{c}{I}\dot{\theta} + \frac{k}{I}\theta =  \frac{M_{0}}{I}\sin(\Omega t)
 $$
 
 
