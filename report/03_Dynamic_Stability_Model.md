@@ -64,5 +64,10 @@ $$
 $$
 
 
-## 3.4 Physical Interpretation
-## 3.5 Future Numerical Simulation
+## 3.4 Analytical Solution
+
+## 3.5 Physical Interpretation
+
+## 3.6 Numerical Simulation
+
+## 3.7 Discussion
