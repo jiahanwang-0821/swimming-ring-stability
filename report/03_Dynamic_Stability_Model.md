@@ -47,7 +47,7 @@ $$
 M_{\mathrm{wave}}(t)= M_0\sin(\Omega t+\phi)
 $$
 
-where M_{0}is the amplitude of the wave-induced moment, $\Omega$ is the angular frequency of the waves, and $\phi$ is the initial phase.For simplicity, the present project sets ϕ=0.
+where $M_0$ is the amplitude of the wave-induced moment, $\Omega$ is the angular frequency of the waves, and $\phi$ is the initial phase. For simplicity, the present model sets $\phi=0$.
 
 Substituting the external moment into the governing equation gives
 
@@ -56,6 +56,8 @@ I\ddot{\theta} + c\dot{\theta} + k\theta =
 M_0\sin(\Omega t)
 $$
 
+where $I$ is the moment of inertia, $c$ is the damping coefficient, $k$ is the effective restoring coefficient, and $M_{\text{wave}}(t)$ is the external moment produced by the wave disturbance.
+
 Dividing both sides by the moment of inertia $I$ yields, the equation becomes
 
 $$
@@ -63,7 +65,7 @@ $$
 $$
 
 
-## 3.4 Analytical Solution
+## 3.4 Qualitative Analysis of the Solution
 
 Before considering the external wave disturbance, the homogeneous form of the governing equation is
 
@@ -98,7 +100,7 @@ $$
 
 If $c^2<4Ik$, the system is underdamped and the swimming ring oscillates while gradually returning toward equilibrium. If $c^2=4Ik$, the system is critically damped and returns to equilibrium without oscillating. If $c^2>4Ik$, the system is overdamped and returns more slowly without oscillation.
 
-For the forced model,
+The forced model can be written as 
 
 $$
 I\ddot{\theta} + c\dot{\theta} + k\theta = M_0\sin(\Omega t)
@@ -107,10 +109,12 @@ $$
 the complete solution consists of a transient response and a steady-state response:
 
 $$
-\theta(t) = \theta_{\text{transient}}(t) + \theta_{\text{steady}}(t).
+\theta(t)=\theta_h(t)+\theta_p(t)
 $$
+where $\theta_h(t)$ is the transient response and $\theta_p(t)$ is the steady-state response produced by the periodic forcing.
 
-The transient response depends on the initial conditions and decreases over time when damping is present. The steady-state response describes the continuing oscillation caused by the periodic wave disturbance.
+The transient response depends on the initial conditions and decreases over time when damping is present. The steady-state response describes the continuing oscillation caused by the periodic wave disturbance. Its amplitude is expected to depend on the forcing frequency. In a linear model, the response becomes larger when the wave frequency approaches the natural frequency of the system, although damping limits the maximum amplitude.
+
 
 ## 3.5 Physical Interpretation
 
@@ -130,8 +134,6 @@ The restoring coefficient $k$ represents the tendency of buoyancy and gravity to
 The wave amplitude $M_0$ controls the strength of the external disturbance, while $\Omega$ determines how rapidly that disturbance varies with time.
 
 ## 3.6 Numerical Simulation
-The steady-state amplitude is expected to depend on the forcing frequency. In a linear model, the response becomes larger when the wave frequency approaches the natural frequency of the system, although damping limits the maximum amplitude.
-
 Because the forced differential equation may be difficult to evaluate for many parameter combinations analytically, a numerical simulation will be implemented in MATLAB.
 
 The second-order equation is rewritten as a system of two first-order equations by defining
@@ -156,7 +158,7 @@ $$
 \dot{x}_2= \frac{1}{I} \left[M_0\sin(\Omega t)-cx_2-kx_1 \right].
 $$
 
-MATLAB's `ode45` solver can then be used to compute the inclination angle over time for specified initial conditions and model parameters.
+MATLAB's `ode45` solver can then be used to compute the inclination angle over time for specified initial conditions and model parameters. Here, ${x}_1$ represents the inclination angle, while ${x}_2$ represents the angular velocity. This transformation converts the second-order differential equation into an equivalent system of two first-order equations, which can be solved numerically using MATLAB's ode45 solver.
 
 The numerical simulation will be used to examine:
 
@@ -164,7 +166,9 @@ The numerical simulation will be used to examine:
 * the effect of damping on oscillation decay,
 * the effect of restoring strength on the natural response,
 * the effect of wave amplitude and frequency,
-* and whether the simulated inclination exceeds the static critical angle.
+* how the simulated inclination compares with the static critical angle.
+
+Because the dynamic model uses a small-angle linear approximation, it cannot accurately describe the motion near or beyond the static critical angle. Therefore, the comparison is intended only as a qualitative reference rather than as a direct prediction of capsizing.
 
 ## 3.7 Discussion and Limitations
 
@@ -172,6 +176,6 @@ This dynamic model extends the static stability analysis by considering how the 
 
 The results should be understood as predictions from a simplified mathematical model rather than exact descriptions of a real swimming ring. The model suggests that damping reduces oscillations, while stronger wave disturbances produce larger angular motion. It also suggests that the response depends on the relationship between the wave frequency and the natural frequency of the system.
 
-However, several simplifications were made in this project. The swimming ring was treated as a rigid body, although an inflatable ring can deform in reality. Water resistance was represented by a linear damping term, and surface waves were simplified as a single sinusoidal disturbance. In addition, the parameters used in the model were not calibrated using experimental measurements.
+However, several simplifications were made in this project. The swimming ring was treated as a rigid body, although an inflatable ring can deform in reality. Water resistance was represented by a linear damping term, and surface waves were simplified as a single sinusoidal disturbance. In addition, the parameters used in the model were not calibrated using experimental measurements. The linear restoring term also assumes that the inclination angle remains close to equilibrium. Therefore, the model becomes less reliable at large angles and cannot fully describe the process of capsizing.
 
-Because of these assumptions, the present model should not be used to predict the exact behavior of a commercial swimming ring. Instead, it provides a mathematical framework for understanding the relationship between restoring effects, damping, and external disturbances. Future work can improve the model by incorporating experimental data and more realistic fluid interactions.
+Because of these assumptions, the present model should not be used to predict the exact behavior of a commercial swimming ring. Instead, it provides a mathematical framework for understanding the relationship between restoring effects, damping, and external disturbances. Future work can improve the model by incorporating experimental data, estimating model parameters, and introducing more realistic fluid interactions. Despite these limitations, the present model provides a useful foundation for extending static stability analysis to a time-dependent mathematical framework.
