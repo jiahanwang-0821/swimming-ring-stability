@@ -30,7 +30,7 @@ The simulator classifies the ring as “Stable” when the selected tilt angle i
 The dynamic model is governed by
 
 $$
-\ddot{\theta} + c\dot{\theta} + k\theta = A\sin(\Omega t).
+\ddot{\theta} + c\dot{\theta} + k\theta = M_{0} \sin(\Omega t).
 $$
 
 The second-order equation is rewritten as the first-order system
