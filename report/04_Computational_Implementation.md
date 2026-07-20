@@ -24,7 +24,7 @@ An interactive MATLAB interface was created to explore how the ring geometry and
 The simulator classifies the ring as “Stable” when the selected tilt angle is below the estimated critical angle and as “Capsized” when the tilt angle exceeds it. This classification is based on the simplified static threshold developed in the model and should therefore be interpreted as a comparative indicator rather than an exact prediction of real capsizing behavior.
 
 (Animation 1: Interactive MATLAB stability simulator with controls for tilt angle, major radius, and minor radius.)
-
+Because the interface is interactive, a single static image cannot fully demonstrate its functionality. The source code is provided in the repository for users to explore the simulator directly.
 
 ## 4.4 Dynamic Numerical Implementation
 The dynamic model is governed by
