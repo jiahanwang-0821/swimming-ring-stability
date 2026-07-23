@@ -96,50 +96,154 @@ This moment model should be interpreted as a simplified static approximation rat
 
 ## 2.6 Critical Tilt Angle
 
-The critical tilt angle is defined here as the maximum inclination predicted by the simplified static model from which the swimming ring can still recover.
+The critical tilt angle is defined in this project as the maximum inclination predicted by the simplified static model from which the swimming ring can still recover. It is used as a reference stability boundary rather than as a universal capsizing angle for all swimming rings.
 
-For the density-distribution model, the critical angle satisfies
+### 2.6.1 Density-Distribution Model
+
+To represent a non-uniform distribution of material or internal gas, the density around the swimming ring is modeled as
 
 $$
-\cos(\theta_{\text{critical}})=
-\frac{\rho_0}{\rho_{\text{water}}}
-\left(
-1+\frac{\Delta\rho}{2\rho_0}
-\right),
+\rho(\phi)=
+\rho_0
++
+\Delta\rho\cos\phi,
 $$
 
 where
 
-* $$\rho_0$$ is the baseline density,
-* $$\Delta\rho$$ is the modeled density variation, and
-* $$\rho_{\text{water}}$$ is the density of water.
+- $\phi$ is the angular position measured around the swimming ring,
+- $\rho_0$ is the baseline density, and
+- $\Delta\rho$ is the amplitude of the modeled density variation.
 
-Using the baseline values
+The variable $\phi$ is used here instead of $\theta$ because $\theta$ will later represent the physical tilt angle of the swimming ring.
 
-$$
-\rho_0=600\ \mathrm{kg/m^3},
-\qquad
-\Delta\rho=200\ \mathrm{kg/m^3},
-\qquad
-\rho_{\text{water}}=1000\ \mathrm{kg/m^3},
-$$
-
-the critical angle is
+Since
 
 $$
-\theta_{\text{critical}}=
-\arccos\left[
-\frac{600}{1000}
+\cos(-\phi)=\cos\phi,
+$$
+
+the density function satisfies
+
+$$
+\rho(-\phi)=\rho(\phi).
+$$
+
+Therefore, the assumed density distribution is symmetric about the reference axis. Although the distribution is symmetric, the density variation changes the effective mass distribution used in the simplified stability model.
+
+### 2.6.2 Simplified Critical-Angle Relation
+
+A complete critical-angle calculation would require the submerged geometry and the center of buoyancy to be recalculated for every tilt angle. In the present model, this process is simplified by representing the effect of the density variation through an effective density.
+
+For the cosine density model, the effective density used in the original approximation is
+
+$$
+\rho_{\mathrm{eff}}=
+\rho_0
 \left(
-1+\frac{200}{1200}
+1+\frac{\Delta\rho}{2\rho_0}
+\right).
+$$
+
+Equivalently,
+
+$$
+\rho_{\mathrm{eff}}=
+\rho_0+\frac{\Delta\rho}{2}.
+$$
+
+The factor of $\frac{1}{2}$ represents the averaged contribution of the modeled density variation within the simplified static approximation.
+
+The critical condition is then expressed by comparing the effective density of the swimming ring with the density of water:
+
+$$
+\cos(\theta_c)=
+\frac{\rho_{\mathrm{eff}}}
+{\rho_{\mathrm{water}}}.
+$$
+
+Substituting the expression for $\rho_{\mathrm{eff}}$ gives
+
+$$
+\cos(\theta_c)=
+\frac{
+\rho_0+\frac{\Delta\rho}{2}
+}{
+\rho_{\mathrm{water}}
+}
+$$
+
+This can also be written as
+
+$$
+\cos(\theta_c)=
+\frac{\rho_0}{\rho_{\mathrm{water}}}
+\left(
+1+\frac{\Delta\rho}{2\rho_0}
+\right).
+$$
+
+Therefore, the estimated critical angle is
+
+$$
+\theta_c=
+\arccos
+\left[
+\frac{\rho_0}{\rho_{\mathrm{water}}}
+\left(
+1+\frac{\Delta\rho}{2\rho_0}
 \right)
 \right]
-\approx 53.1^\circ.
 $$
 
-Therefore, $$53.1^\circ$$ is not a universal critical angle for all swimming rings. It is the baseline result obtained from the particular density assumptions used in the original IA.
+### 2.6.3 Baseline Example
 
-In the current project, this value is used as a reference point for the MATLAB simulator. The simulator then explores how changes in geometric and model parameters may affect the estimated stability boundary. These additional parameter relationships are treated as computational extensions.
+As a baseline example, consider
+
+$$
+\rho_0=
+600\ \mathrm{kg/m^3},
+$$
+
+
+$$
+\Delta\rho=
+200\ \mathrm{kg/m^3},
+$$
+
+and
+
+$$
+\rho_{\mathrm{water}}=
+1000\ \mathrm{kg/m^3}
+$$
+
+The corresponding effective density is
+
+$$
+\rho_{\mathrm{eff}}= 600+\frac{200}{2}=
+700\ \mathrm{kg/m^3}.
+$$
+
+The estimated critical angle is therefore
+
+$$
+\theta_c=
+\arccos
+\left(
+\frac{700}{1000}
+\right)
+\approx
+45.6^\circ.
+$$
+
+This numerical value is only an example produced by the stated parameter assumptions. It is not a universal critical angle for all swimming rings.
+
+### 2.6.4 Interpretation and Limitations
+
+The critical-angle equation provides a simplified reference boundary for the later computational model. If the predicted tilt angle remains below $\theta_c$, the swimming ring is classified as remaining within the modeled stable range. If the predicted tilt reaches or exceeds $\theta_c$, the response is classified as exceeding the reference stability boundary.
+
+The relation does not represent a complete hydrostatic capsizing calculation. In particular, it does not explicitly recalculate the submerged volume, center of buoyancy, or restoring moment at every inclination. It is therefore used as a baseline computational estimate that will later be compared with the dynamic tilt response $\theta(t)$.
 
 ## 2.7 Interactive MATLAB Visualization
 
