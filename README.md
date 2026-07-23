@@ -4,12 +4,9 @@ This project investigates the stability of swimming rings through mathematical m
 
 The project originated from my IB Mathematics AA HL Internal Assessment and is being extended into an ongoing applied mathematics project.
 
-## Research Questions
+## Research Question
 
-* How does the geometry of a swimming ring affect its stability?
-* How do buoyancy and gravity interact in floating systems?
-* What factors determine the critical tilt angle of a swimming ring?
-* How can computational simulation be used to evaluate stability?
+How does the geometry and mass distribution of an idealized swimming ring affect its hydrostatic restoring behavior and its response to periodic rotational forcing?
 
 ## Current Progress
 
