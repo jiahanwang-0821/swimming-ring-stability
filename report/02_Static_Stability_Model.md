@@ -34,7 +34,7 @@ where
 
 The volume formula was derived in the original IB Mathematics AA HL Internal Assessment using both the Disk Method and Pappus' Centroid Theorem. Since both approaches produce the same result, the equation is adopted directly in the present project. Consequently, changing either the major radius or the tube radius changes the displaced volume and therefore influences the buoyancy characteristics of the swimming ring.
 
-In this project, the volume equation is primarily used to estimate buoyancy and displaced water volume rather than serving as the final objective. Rather than serving as the final objective, the volume equation provides the geometric basis for the subsequent buoyancy and stability analyses. Once the geometric properties have been established, the buoyancy acting on the swimming ring can be determined using Archimedes' principle.
+In this project, the volume equation is used to estimate displaced water volume and buoyancy. Once the geometric properties have been established, the buoyant force can be determined using Archimedes' principle.
 
 ## 2.3 Static Equilibrium
 
@@ -62,7 +62,7 @@ The center of gravity (GC) represents the effective point through which the weig
 
 The center of buoyancy (BC) is the centroid of the displaced water volume. Unlike the center of gravity, the center of buoyancy changes position as the swimming ring tilts because the submerged portion of the ring changes.
 
-Figure 1 provides one representative tilted configuration. It illustrates how the two centers may become separated when the swimming ring is inclined. The interactive MATLAB simulator extends this static image by showing how the modeled BC position changes as the tilt angle varies.
+Figure 1 provides one representative tilted configuration. It illustrates how the two centers may become separated when the swimming ring is inclined.
 
 ## 2.5 Restoring Moment
 
@@ -239,11 +239,11 @@ $$
 
 This numerical value is only an example produced by the stated parameter assumptions. It is not a universal critical angle for all swimming rings.
 
-### 2.6.4 Interpretation and Limitations
+### 2.6.4 Interpretation
 
 The critical-angle equation provides a simplified reference boundary for the later computational model. If the predicted tilt angle remains below $\theta_c$, the swimming ring is classified as remaining within the modeled stable range. If the predicted tilt reaches or exceeds $\theta_c$, the response is classified as exceeding the reference stability boundary.
 
-The relation does not represent a complete hydrostatic capsizing calculation. In particular, it does not explicitly recalculate the submerged volume, center of buoyancy, or restoring moment at every inclination. It is therefore used as a baseline computational estimate that will later be compared with the dynamic tilt response $\theta(t)$.
+This threshold will later be compared with the dynamic tilt response $\theta(t)$.
 
 ## 2.7 Interactive MATLAB Visualization
 
@@ -253,8 +253,8 @@ The simulator displays the torus geometry, water surface, center of gravity (GC)
 
 Unlike the original IA, which analyzed only one representative inclination, the interactive simulator allows the tilt angle and geometric parameters to be adjusted continuously. This visualization provides a more intuitive understanding of how geometry influences buoyancy, restoring moment, and the critical tilt angle.
 
-The MATLAB implementation also provides the computational bridge between the analytical model developed in this chapter and the dynamic stability model introduced in the next chapter.
+The source code for the interactive MATLAB implementation is provided in the repository.
 
 ## 2.8 Limitations of the Static Model
 
-The static model developed in this chapter assumes still water and quasi-static motion. External disturbances such as waves, wind, and rapid user movements are neglected. These assumptions allow the relationship between geometry and stability to be analyzed clearly, but they also limit the applicability of the model in realistic environments. The next chapter extends this framework by introducing computational visualization, while future work will extend the present static model by introducing a time-dependent second-order differential equation to investigate wave-induced oscillatory motion.
+These assumptions allow the relationship between geometry and static stability to be analyzed clearly, but they limit the model's applicability in realistic wave conditions. The next chapter extends the static framework by introducing a time-dependent second-order differential equation for the tilt response.
