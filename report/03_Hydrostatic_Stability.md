@@ -68,6 +68,59 @@ With the equilibrium condition established, the next step is to determine which 
 
 ## 3.2 Submerged Region
 
+To evaluate the buoyant force and the center of buoyancy, it is first necessary to determine which portion of the swimming ring lies below the water surface. Since the buoyant force depends only on the displaced volume, accurately identifying the submerged region is a fundamental step in the hydrostatic analysis.
+
+In the present model, the water surface is represented by the horizontal plane
+
+$$
+z=0.
+$$
+
+After the swimming ring is rotated by a prescribed tilt angle, every point on the torus has a new Cartesian coordinate
+
+$$
+\mathbf{r}(u,v,s) = 
+\begin{pmatrix}
+X(u,v,s)\\
+Y(u,v,s)\\
+Z(u,v,s)
+\end{pmatrix},
+$$
+
+where the rotated coordinates are obtained from the geometric model established in Chapter 2.
+
+A point is considered submerged if its vertical coordinate satisfies
+
+$$
+Z(u,v,s)\le0
+$$
+
+Accordingly, the submerged region is defined as
+
+$$
+\Omega_{\mathrm{sub}} =
+\lbrace (u,v,s)\mid Z(u,v,s)\le 0 \rbrace.
+$$
+
+Rather than explicitly dividing the torus into submerged and unsubmerged parts, it is more convenient to introduce an indicator function,
+
+$$
+I(u,v,s) = 
+\begin{cases}
+1,
+&
+Z(u,v,s)\le0,
+\\\
+0,
+&
+Z(u,v,s)>0.
+\end{cases}
+$$
+
+This function assigns a value of one to every submerged point and zero to every point above the water surface. As a result, all subsequent volume integrals can be evaluated over the entire torus while automatically excluding the unsubmerged region.
+
+This formulation avoids the need to derive complicated analytical boundaries for the submerged volume. Instead, the submerged geometry is determined directly from the coordinates of each point after rotation, making the method suitable for arbitrary tilt angles and different mass-distribution models.
+
 ## 3.3 Numerical Evaluation of the Submerged Volume
 
 ## 3.4 Floating Height
