@@ -121,7 +121,244 @@ This function assigns a value of one to every submerged point and zero to every 
 
 This formulation avoids the need to derive complicated analytical boundaries for the submerged volume. Instead, the submerged geometry is determined directly from the coordinates of each point after rotation, making the method suitable for arbitrary tilt angles and different mass-distribution models.
 
-## 3.3 Numerical Evaluation of the Submerged Volume
+## 3.3 Evaluation of the Submerged Volume
+
+The volume element derived in Chapter 2 is
+
+$$
+dV = 
+s(R+s\cos v)\,ds\,dv\,du,
+$$
+
+where
+
+$$
+0\le u<2\pi,
+\qquad
+0\le v<2\pi,
+\qquad
+0\le s\le r.
+$$
+
+The corresponding body-fixed coordinates of a point inside the solid torus are
+
+$$
+x(u,v,s) = 
+(R+s\cos v)\cos u,
+$$
+
+$$
+y(u,v,s) = 
+(R+s\cos v)\sin u,
+$$
+
+and
+
+$$
+z(u,v,s) = 
+s\sin v.
+$$
+
+For a rotation through angle $\theta$ about the $y$-axis, the global coordinates are
+
+$$
+X=
+x\cos\theta+z\sin\theta,
+$$
+
+$$
+Y=
+y,
+$$
+
+and
+
+$$
+Z=
+-x\sin\theta+z\cos\theta+h,
+$$
+
+where $h$ is the fixed vertical position of the center of the torus relative to the water surface.
+
+Since the water surface is defined by
+
+$$
+Z=0,
+$$
+
+a point is submerged when
+
+$$
+Z(u,v,s;\theta)\le 0.
+$$
+
+Substituting the torus coordinates gives
+
+$$
+Z(u,v,s;\theta) = 
+-(R+s\cdot \cos v)\cos u\sin\theta
++s\cdot \sin v\cos\theta
++h.
+$$
+
+The submerged indicator function is defined by
+
+$$
+I_{\mathrm{sub}}(u,v,s;\theta)=1
+\qquad
+\text{if }
+Z(u,v,s;\theta)\le 0,
+$$
+
+and
+
+$$
+I_{\mathrm{sub}}(u,v,s;\theta)=0
+\qquad
+\text{if }
+Z(u,v,s;\theta)>0.
+$$
+
+The submerged volume can then be written as
+
+$$
+V_{\mathrm{sub}}(\theta)=
+\iiint_V
+I_{\mathrm{sub}}(u,v,s;\theta)\,dV.
+$$
+
+Using the toroidal volume element,
+
+$$
+V_{\mathrm{sub}}(\theta)=
+\int_0^{2\pi}
+\int_0^{2\pi}
+\int_0^r
+I_{\mathrm{sub}}(u,v,s;\theta)
+s(R+s\cos v)
+\,ds\,dv\,du.
+$$
+
+The submerged boundary depends on the tilt angle and is not generally represented by constant limits in the parameter variables. The integral is therefore approximated by a three-dimensional midpoint sum.
+
+Divide the parameter intervals into
+
+$$
+N_u,\qquad N_v,\qquad N_s
+$$
+
+subintervals, with step sizes
+
+$$
+\Delta u=
+\frac{2\pi}{N_u},
+$$
+
+$$
+\Delta v=
+\frac{2\pi}{N_v},
+$$
+
+and
+
+$$
+\Delta s=
+\frac{r}{N_s}.
+$$
+
+The midpoint values are
+
+$$
+u_i=
+\left(i-\frac12\right)\Delta u,
+\qquad
+i=1,\ldots,N_u,
+$$
+
+$$
+v_j=
+\left(j-\frac12\right)\Delta v,
+\qquad
+j=1,\ldots,N_v,
+$$
+
+and
+
+$$
+s_k=
+\left(k-\frac12\right)\Delta s,
+\qquad
+k=1,\ldots,N_s.
+$$
+
+Each parameter-space cell represents the physical volume
+
+$$
+\Delta V_{ijk}=
+s_k(R+s_k\cos v_j)
+\Delta s\,\Delta v\,\Delta u.
+$$
+
+The numerical approximation of the submerged volume is
+
+$$
+V_{\mathrm{sub}}(\theta)
+\approx
+\sum_{i=1}^{N_u}
+\sum_{j=1}^{N_v}
+\sum_{k=1}^{N_s}
+I_{\mathrm{sub}}(u_i,v_j,s_k;\theta)
+\Delta V_{ijk}.
+$$
+
+Equivalently,
+
+$$
+V_{\mathrm{sub}}(\theta)
+\approx
+\sum_{i=1}^{N_u}
+\sum_{j=1}^{N_v}
+\sum_{k=1}^{N_s}
+I_{\mathrm{sub}}(u_i,v_j,s_k;\theta)
+s_k(R+s_k\cos v_j)
+\Delta s\,\Delta v\,\Delta u.
+$$
+
+When every point is included, the same summation approximates the full torus volume
+
+$$
+V_{\mathrm{torus}} = 
+2\pi^2Rr^2.
+$$
+
+This provides a numerical check for the discretization:
+
+$$
+\varepsilon_V = 
+\frac{
+\left|
+V_{\mathrm{numerical}} - 
+2\pi^2Rr^2
+\right|
+}{
+2\pi^2Rr^2
+}.
+$$
+
+As the grid resolution increases,
+
+$$
+N_u,N_v,N_s\rightarrow\infty,
+$$
+
+the numerical error should decrease and the midpoint sum should approach the continuous volume integral.
+
+Figure 1 illustrates the tilted torus relative to the fixed water surface. Only parameter-space cells satisfying $Z\le0$ contribute to the submerged-volume calculation.
+
+![Figure 1: Tilted torus relative to the water surface](../figures/figure1.png)
+
+The same submerged-volume calculation will be used in the next section to determine the center of buoyancy.
+
 
 ## 3.4 Floating Height
 
