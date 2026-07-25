@@ -373,3 +373,13 @@ The same submerged-volume calculation will be used in the next section to determ
 ## 3.9 Stability Criterion
 
 ## 3.10 Numerical Algorithm
+
+### MATLAB Implementation
+
+The hydrostatic model developed in this chapter was implemented as an interactive MATLAB simulator.
+
+Two versions of the simulator are provided.
+
+The **Ideal Hydrostatic Model** directly implements the theoretical assumptions presented in this chapter, including a uniform mass distribution and a center of gravity located at the geometric center of the torus.
+
+A second implementation, referred to as the **General Hydrostatic Stability Model**, extends the theoretical framework by allowing the center of gravity to move vertically within the torus cross-section while preserving the same buoyancy formulation. This extension enables the investigation of the influence of internal mass distribution on hydrostatic stability and allows stable, neutral, and unstable equilibrium configurations to be explored interactively.
