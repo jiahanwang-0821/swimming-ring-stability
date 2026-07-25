@@ -355,7 +355,7 @@ the numerical error should decrease and the midpoint sum should approach the con
 
 Figure 1 illustrates the tilted torus relative to the fixed water surface. Only parameter-space cells satisfying $Z\le0$ contribute to the submerged-volume calculation.
 
-![Figure 1: Tilted torus relative to the water surface](../figures/figure1.png)
+![Figure 1](../../figures/figure1.png)
 
 The same submerged-volume calculation will be used in the next section to determine the center of buoyancy.
 
