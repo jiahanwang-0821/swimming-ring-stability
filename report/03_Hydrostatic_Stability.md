@@ -353,9 +353,10 @@ $$
 
 the numerical error should decrease and the midpoint sum should approach the continuous volume integral.
 
+<img width="3907" height="2563" alt="Figure_1" src="https://github.com/user-attachments/assets/3a822694-bd5f-4251-b24c-ee92de8fee04" />
+
 Figure 1 illustrates the tilted torus relative to the fixed water surface. Only parameter-space cells satisfying $Z\le0$ contribute to the submerged-volume calculation.
 
-![Figure 1](../../figures/figure1.png)
 
 The same submerged-volume calculation will be used in the next section to determine the center of buoyancy.
 
