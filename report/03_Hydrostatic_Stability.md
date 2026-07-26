@@ -476,6 +476,82 @@ This procedure ensures that each displayed orientation satisfies Archimedes' pri
 
 ## 3.5 Center of Buoyancy
 
+The buoyant force acts through the centroid of the displaced water volume. Therefore, once the submerged region has been identified, the center of buoyancy (BC) can be obtained directly from the first moments of the submerged volume.
+
+Let
+
+$$
+\Omega_{\mathrm{sub}} = 
+\{(u,v,s)\mid Z(u,v,s;\theta,h)\le0\}
+$$
+
+denote the submerged region determined in the previous sections. The Cartesian coordinates of the center of buoyancy are defined by
+
+$$
+x_B = 
+\frac{1}{V_{\mathrm{sub}}}
+\iiint_{\Omega_{\mathrm{sub}}}
+X\,dV,
+$$
+
+$$
+y_B = 
+\frac{1}{V_{\mathrm{sub}}}
+\iiint_{\Omega_{\mathrm{sub}}}
+Y\,dV,
+$$
+
+and
+
+$$
+z_B = 
+\frac{1}{V_{\mathrm{sub}}}
+\iiint_{\Omega_{\mathrm{sub}}}
+Z\,dV.
+$$
+
+Since the submerged region generally has no closed-form analytical boundary, these volume integrals are evaluated numerically using the same midpoint discretization introduced in Section 3.3.
+
+Using the midpoint approximation, the coordinates become
+
+$$
+x_B
+\approx
+\frac{
+\sum X_{ijk} I_{\mathrm{sub},ijk}\Delta V_{ijk}
+}{
+V_{\mathrm{sub}}
+},
+$$
+
+$$
+y_B
+\approx
+\frac{
+\sum Y_{ijk} I_{\mathrm{sub},ijk}\Delta V_{ijk}
+}{
+V_{\mathrm{sub}}
+},
+$$
+
+and
+
+$$
+z_B
+\approx
+\frac{
+\sum Z_{ijk} I_{\mathrm{sub},ijk}\Delta V_{ijk}
+}{
+V_{\mathrm{sub}}
+}.
+$$
+
+Because the buoyant force acts vertically upward through the center of buoyancy, the horizontal location of BC relative to the center of gravity determines the hydrostatic restoring arm discussed in the next section.
+
+As the tilt angle changes, the submerged geometry changes accordingly, causing the center of buoyancy to move continuously. This migration of BC is the fundamental mechanism responsible for generating the hydrostatic restoring moment. 
+
+For every prescribed configuration, the floating height is solved first from the equilibrium condition. The center of buoyancy is then evaluated using the resulting submerged geometry, ensuring that the buoyancy calculation remains consistent with Archimedes' principle.
+
 ## 3.6 Center of Gravity
 
 The center of gravity depends on the assumed internal mass distribution.
@@ -678,3 +754,8 @@ Two versions of the simulator are provided.
 The **Ideal Hydrostatic Model** directly implements the theoretical assumptions presented in this chapter, including a uniform mass distribution and a center of gravity located at the geometric center of the torus.
 
 A second implementation, referred to as the **General Hydrostatic Stability Model**, extends the theoretical framework by allowing the center of gravity to move vertically within the torus cross-section while preserving the same buoyancy formulation. This extension enables the investigation of the influence of internal mass distribution on hydrostatic stability and allows stable, neutral, and unstable equilibrium configurations to be explored interactively.
+
+* Ideal Model Screenshot
+
+<img width="844" height="709" alt="Animation_1" src="https://github.com/user-attachments/assets/21d5ea6c-0e98-4ed7-9513-68a0e7f39347" />
+
