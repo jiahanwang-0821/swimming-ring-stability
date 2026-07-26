@@ -4,8 +4,9 @@ The geometric model developed in Chapter 2 provides the foundation for the hydro
 
 The objective is to investigate how geometry and mass distribution influence the hydrostatic restoring ability of a floating toroidal body. For each prescribed tilt angle, the submerged region is determined numerically, allowing the submerged volume, center of buoyancy, restoring arm, and restoring moment to be evaluated. The critical stability angle, if it exists, is therefore obtained as a numerical result rather than an assumed parameter.
 
-Throughout this chapter, the floating height of the swimming ring is assumed to remain constant. This assumption isolates the influence of geometry and mass distribution on hydrostatic stability while keeping the mathematical model computationally tractable. A more general floating-equilibrium model is discussed in Chapter 6.
+Throughout this chapter, the floating height of the swimming ring is determined from the static equilibrium condition rather than prescribed as a constant. For each combination of tilt angle, geometry, and density ratio, the vertical position of the torus is solved numerically so that the buoyant force equals the total weight. This allows the submerged geometry and center of buoyancy to remain consistent with Archimedes' principle at every tested orientation.
 
+Two mass-distribution assumptions are considered. The ideal model places the center of gravity at the geometric center of the torus, while the general model allows the center of gravity to move vertically within the torus cross-section. The second model is used to investigate how non-uniform internal mass distribution affects hydrostatic stability.
 
 ---
 
@@ -62,7 +63,56 @@ $$
 
 This equation states that the volume of displaced water must exactly balance the weight of the swimming ring.
 
-In the present model, the floating height is assumed to remain constant throughout the analysis. Under this assumption, changing the tilt angle alters the shape of the submerged region without introducing an additional equilibrium variable. Consequently, the restoring behavior depends only on the geometry of the submerged body and the prescribed mass distribution.
+Let the average density of the swimming ring be
+
+$$
+\rho_{\mathrm{avg}} = 
+\frac{m}{V_{\mathrm{torus}}},
+$$
+
+where
+
+$$
+V_{\mathrm{torus}} = 
+2\pi^2Rr^2.
+$$
+
+Substituting
+
+$$
+m = 
+\rho_{\mathrm{avg}}V_{\mathrm{torus}}
+$$
+
+into the floating-equilibrium condition gives
+
+$$
+\rho_{\mathrm{water}}V_{\mathrm{sub}} = 
+\rho_{\mathrm{avg}}V_{\mathrm{torus}}.
+$$
+
+Therefore,
+
+$$
+\frac{V_{\mathrm{sub}}}{V_{\mathrm{torus}}} = 
+\frac{\rho_{\mathrm{avg}}}{\rho_{\mathrm{water}}}.
+$$
+
+The ratio
+
+$$
+\lambda = 
+\frac{\rho_{\mathrm{avg}}}{\rho_{\mathrm{water}}}
+$$
+
+is referred to as the density ratio. For a prescribed tilt angle and torus geometry, the floating height \(h\) is determined numerically so that
+
+$$
+V_{\mathrm{sub}}(h,\theta) = 
+\lambda V_{\mathrm{torus}}.
+$$
+
+Consequently, the floating height is treated as an equilibrium variable rather than a fixed parameter. Changing the tilt angle alters the submerged geometry, and the vertical position of the torus is recalculated to preserve static floating equilibrium.
 
 With the equilibrium condition established, the next step is to determine which portion of the swimming ring lies below the water surface.
 
@@ -119,7 +169,7 @@ $$
 
 This function assigns a value of one to every submerged point and zero to every point above the water surface. As a result, all subsequent volume integrals can be evaluated over the entire torus while automatically excluding the unsubmerged region.
 
-This formulation avoids the need to derive complicated analytical boundaries for the submerged volume. Instead, the submerged geometry is determined directly from the coordinates of each point after rotation, making the method suitable for arbitrary tilt angles and different mass-distribution models.
+This formulation avoids the need to derive complicated analytical boundaries for the submerged volume. Instead, the submerged geometry is determined directly from the transformed coordinates of each integration point after rotation and vertical translation. The method is therefore suitable for arbitrary tilt angles, different torus geometries, and numerically determined floating heights.
 
 ## 3.3 Evaluation of the Submerged Volume
 
@@ -178,7 +228,7 @@ Z=
 -x\sin\theta+z\cos\theta+h,
 $$
 
-where $h$ is the fixed vertical position of the center of the torus relative to the water surface.
+where $h$ is the vertical position of the geometric center of the torus relative to the water surface. Its value is determined numerically from the floating-equilibrium condition for each prescribed configuration.
 
 Since the water surface is defined by
 
@@ -363,17 +413,261 @@ The same submerged-volume calculation will be used in the next section to determ
 
 ## 3.4 Floating Height
 
+For a prescribed geometry, tilt angle, and density ratio, the floating height must satisfy
+
+$$
+V_{\mathrm{sub}}(h,\theta) = 
+\lambda V_{\mathrm{torus}},
+$$
+
+where
+
+$$
+\lambda =
+\frac{\rho_{\mathrm{avg}}}{\rho_{\mathrm{water}}}.
+$$
+
+Since the submerged volume is evaluated numerically and does not generally have a simple closed-form expression in $h$, the equilibrium height is found using a bisection method.
+
+Define
+
+$$
+f(h) =
+V_{\mathrm{sub}}(h,\theta) -
+\lambda V_{\mathrm{torus}}.
+$$
+
+When the torus is moved downward, the submerged volume increases, while moving it upward decreases the submerged volume. Therefore, $$f(h)$$ is monotonic over the physically relevant interval.
+
+A lower bound $$h_{\mathrm{low}}$$ is selected so that the torus is almost fully submerged, while an upper bound $$h_{\mathrm{high}}$$ is selected so that it is almost fully above the water surface. The midpoint is then computed as
+
+$$
+h_{\mathrm{mid}} = 
+\frac{h_{\mathrm{low}}+h_{\mathrm{high}}}{2}.
+$$
+
+If
+
+$$
+V_{\mathrm{sub}}(h_{\mathrm{mid}},\theta) > 
+\lambda V_{\mathrm{torus}},
+$$
+
+the torus is too deeply submerged and the lower bound is replaced by $$h_{\mathrm{mid}}$$. Otherwise, the upper bound is replaced.
+
+The iteration continues until
+
+$$
+\frac{
+\left|
+V_{\mathrm{sub}}(h,\theta) - 
+\lambda V_{\mathrm{torus}}
+\right|
+}{
+V_{\mathrm{torus}}
+}
+<
+\varepsilon_h,
+$$
+
+where $\varepsilon_h$ is the prescribed numerical tolerance.
+
+This procedure ensures that each displayed orientation satisfies Archimedes' principle before the center of buoyancy and hydrostatic moment are evaluated.
+
 ## 3.5 Center of Buoyancy
 
 ## 3.6 Center of Gravity
 
+The center of gravity depends on the assumed internal mass distribution.
+
+### Ideal Hydrostatic Model
+
+In the ideal model, the swimming ring is assumed to have a uniform mass distribution. Its center of gravity therefore coincides with the geometric center of the torus.
+
+After the torus is vertically translated by the equilibrium floating height $$h$$,
+
+$$
+\mathbf{r}_G = 
+\begin{pmatrix}
+0\\
+0\\
+h
+\end{pmatrix}.
+$$
+
+### General Hydrostatic Stability Model
+
+The general model introduces a vertical center-of-gravity offset $$z_G$$, measured relative to the geometric center in the body-fixed coordinate system.
+
+The offset is constrained by
+
+$$
+-r
+\le
+z_G
+\le
+r,
+$$
+
+so that the center of gravity remains within the torus cross-section.
+
+Before rotation, the center of gravity is represented by
+
+$$
+\mathbf{r}_{G,\mathrm{body}} = 
+\begin{pmatrix}
+0\\
+0\\
+z_G
+\end{pmatrix}.
+$$
+
+After rotation through angle $$\theta$$ about the $$y$$-axis and translation by the floating height $$h$$, its global coordinates become
+
+$$
+\mathbf{r}_G = 
+\begin{pmatrix}
+z_G\sin\theta\\
+0\\
+h+z_G\cos\theta
+\end{pmatrix}.
+$$
+
+The floating height is not affected by the location of the center of gravity because the total mass remains unchanged. However, changing $z_G$ changes the line of action of the gravitational force and therefore alters the hydrostatic moment.
+
 ## 3.7 Righting Arm
+
+The buoyant force acts vertically upward through the center of buoyancy, while the weight acts vertically downward through the center of gravity.
+
+For rotation about the global $$y$$-axis, the signed horizontal separation between the two lines of action is
+
+$$
+GZ = 
+x_B-x_G,
+$$
+
+where $$x_B$$ and $$x_G$$ are the global $$x$$ -coordinates of the center of buoyancy and center of gravity.
+
+The magnitude
+
+$$
+|GZ|
+$$
+
+represents the horizontal righting arm. Its sign indicates the relative position of the two force lines and is retained when calculating the hydrostatic moment.
 
 ## 3.8 Restoring Moment
 
+The moment about the global $$y$$-axis is obtained from the combined contributions of buoyancy and weight.
+
+The buoyant force contributes
+
+$$
+M_{B,y} = 
+-x_BF_B,
+$$
+
+while the gravitational force contributes
+
+$$
+M_{W,y} = 
+x_GW.
+$$
+
+Therefore, the net hydrostatic moment is
+
+$$
+M_y = 
+-x_BF_B+x_GW.
+$$
+
+At floating equilibrium,
+
+$$
+F_B=W,
+$$
+
+so the moment may also be written as
+
+$$
+M_y = 
+-W(x_B-x_G) = 
+-WGZ.
+$$
+
+A moment acting opposite to the prescribed tilt direction is restoring, while a moment acting in the same direction tends to increase the tilt.
+
 ## 3.9 Stability Criterion
 
+For a prescribed nonzero tilt angle $$\theta$$, the stability state is determined from the sign of the hydrostatic moment.
+
+The configuration is classified as stable when
+
+$$
+\theta M_y<0,
+$$
+
+because the moment acts opposite to the tilt direction.
+
+It is classified as unstable when
+
+$$
+\theta M_y>0,
+$$
+
+because the moment acts in the same direction as the tilt and tends to increase it.
+
+A neutral state is assigned when
+
+$$
+|M_y|
+\le
+\varepsilon_M,
+$$
+
+or when the prescribed tilt angle is sufficiently close to zero. Here, $$\varepsilon_M$$ is a numerical moment tolerance used to prevent small discretization errors from producing an artificial stability classification.
+
+The resulting transition should be interpreted as a numerically identified static moment-sign boundary rather than a complete dynamic capsizing angle. The model evaluates the direction of the instantaneous hydrostatic moment at each prescribed orientation but does not simulate angular velocity, damping, wave excitation, or transient motion.
+
+Under the ring-only center-of-gravity constraint
+
+$$
+-r\le z_G\le r,
+$$
+
+unstable configurations may occur only at large tilt angles and large positive center-of-gravity offsets. This reflects the strong restoring behavior of the idealized toroidal body and should not be interpreted as the stability limit of a swimming ring carrying a person or an external load.
+
 ## 3.10 Numerical Algorithm
+
+For each prescribed set of model parameters, the numerical procedure is:
+
+1. Specify the tilt angle $\theta$, major radius $R$, tube radius $r$, density ratio $\lambda$, and, for the general model, center-of-gravity offset $z_G$.
+
+2. Construct a three-dimensional midpoint grid in the toroidal coordinates $(u,v,s)$.
+
+3. Rotate the torus through angle $\theta$.
+
+4. Solve for the floating height \(h\) using the bisection method until
+
+$$
+V_{\mathrm{sub}}(h,\theta)=\lambda V_{\mathrm{torus}}.
+$$
+
+5. Identify submerged grid cells satisfying
+
+$$
+Z(u,v,s;\theta,h)\le0.
+$$
+
+6. Compute the submerged volume and center of buoyancy from the weighted midpoint sums.
+
+7. Determine the center of gravity according to either the ideal or general mass-distribution assumption.
+
+8. Compute the righting arm and net hydrostatic moment.
+
+9. Classify the configuration as stable, neutral, or unstable from the sign of $\theta M_y$.
+
+The entire calculation is repeated whenever a user changes one of the interactive MATLAB controls.
 
 ### MATLAB Implementation
 
