@@ -49,6 +49,9 @@ and provides an interactive visualization of the hydrostatic restoring mechanism
 
 `General_Hydrostatic_Stability_Model.m`
 
+* Sample:
+  <img width="1231" height="767" alt="Animation_2" src="https://github.com/user-attachments/assets/a4419fc7-acc8-43a5-b82f-92fc512edb9b" />
+
 This simulator extends the Ideal Hydrostatic Model by introducing a vertically adjustable center of gravity while preserving the same buoyancy formulation and floating-height calculation.
 
 The additional model parameter
