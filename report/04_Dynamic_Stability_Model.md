@@ -75,13 +75,155 @@ The hydrostatic moment depends mainly on the angular displacement, the damping m
 
 ## 4.3 Hydrostatic Restoring Moment
 
+The hydrostatic calculation in Chapter 3 gives the signed moment
+
+$$
+M_y=M_y(\theta)
+$$
+
+for each prescribed tilt angle. A stable configuration requires this moment to oppose the angular displacement. Therefore, for a positive tilt angle, the restoring moment is negative, and vice versa.
+
+Near the equilibrium position, the moment-angle relationship can be approximated by a linear function,
+
+$$
+M_y(\theta)
+\approx
+-k\theta,
+$$
+
+where $k$ is the hydrostatic stiffness. It is obtained from the slope of the numerical moment-angle curve,
+
+$$
+k
+= - \left. \frac{dM_y}{d\theta} \right|_{\theta=0}.
+$$
+
+The negative sign ensures that a positive value of $k$ corresponds to a restoring moment. A larger $k$ means that the hydrostatic moment increases more rapidly as the ring is tilted, indicating a stronger tendency to return toward equilibrium.
+
+This linear approximation is used only for small oscillations. At larger angles, the moment-angle relationship may no longer be linear, and the complete numerical function $M_y(\theta)$ must be retained.
+
 ## 4.4 Rotational Inertia
+
+The restoring moment alone does not determine how quickly the swimming ring rotates. The angular acceleration also depends on the moment of inertia about the rotation axis.
+
+For a homogeneous solid torus with mass $m_r$, major radius $R$, and tube radius $r$, the moment of inertia about a diameter through the geometric center is
+
+$$
+I_{r,y} =
+m_r
+\left(
+\frac{R^2}{2}
++
+\frac{5r^2}{8}
+\right).
+$$
+
+This expression connects the toroidal geometry directly to the dynamic model. Increasing either $R$ or $r$ increases the rotational inertia. For the same applied moment, a larger rotational inertia produces a smaller angular acceleration,
+
+$$
+\ddot{\theta} = 
+\frac{\sum M_y}{I_{r,y}}.
+$$
+
+A real inflatable swimming ring is closer to a thin shell than a solid torus, so the expression above is an approximation. However, it provides a consistent baseline model for examining how geometry affects rotational motion.
 
 ## 4.5 Damping from Water Resistance
 
+When the swimming ring rotates in water, the surrounding fluid resists its motion and removes mechanical energy from the system. Without this effect, the idealized ring would continue oscillating indefinitely after being disturbed.
+
+The present model represents water resistance using a linear damping moment,
+
+$$
+M_d = 
+-c\dot{\theta},
+$$
+
+where $c>0$ is an effective damping coefficient. The negative sign indicates that the damping moment always opposes the direction of angular velocity.
+
+This model assumes that the resisting moment is proportional to angular velocity. It is a standard first approximation for moderate motion, although real fluid resistance may also contain nonlinear terms such as
+
+$$
+M_d
+\propto
+-\dot{\theta}\lvert\dot{\theta}\rvert.
+$$
+
+Because the current model does not derive drag from the full fluid flow around the torus, $c$ is treated as an adjustable parameter.
+
 ## 4.6 External Wave Excitation
 
+External waves continuously apply time-dependent forces to the swimming ring. Instead of modeling the complete pressure distribution over the torus surface, the disturbance is represented by an equivalent moment about the rotation axis.
+
+The simplest periodic model is
+
+$$
+M_{\mathrm{wave}}(t) = 
+M_0\sin(\Omega t),
+$$
+
+where $M_0$ is the maximum disturbance moment and $\Omega$ is the forcing angular frequency.
+
+The sinusoidal form does not represent every feature of a real water wave. Its purpose is to provide a controlled disturbance with a clearly defined amplitude and frequency. This allows the model to compare the natural rotational response of the ring with the frequency of the external excitation.
+
+More complex disturbances could later be represented by a sum of sinusoidal terms or by measured wave data.
+
 ## 4.7 Governing Differential Equation
+
+The rotational form of Newton's second law is
+
+$$
+I\ddot{\theta} = 
+\sum M_y.
+$$
+
+In the linear dynamic model, the three main moments are
+
+$$
+M_{\mathrm{hydrostatic}} = 
+-k\theta,
+$$
+
+$$
+M_{\mathrm{damping}} = 
+-c\dot{\theta},
+$$
+
+and
+
+$$
+M_{\mathrm{wave}} = 
+M_0\sin(\Omega t).
+$$
+
+Substituting these terms gives
+
+$$
+I\ddot{\theta} = 
+-k\theta
+-c\dot{\theta}
++
+M_0\sin(\Omega t),
+$$
+
+or equivalently,
+
+$$
+I\ddot{\theta}
++
+c\dot{\theta}
++
+k\theta = 
+M_0\sin(\Omega t).
+$$
+
+Each term has a distinct physical role:
+
+* $I\ddot{\theta}$ represents rotational inertia;
+* $c\dot{\theta}$ represents energy loss through water resistance;
+* $k\theta$ represents hydrostatic restoring behavior;
+* $M_0\sin(\Omega t)$ represents external wave excitation.
+
+The equation is linear because the restoring and damping moments are assumed to depend linearly on $\theta$e and $\dot{\theta}$. This assumption will be relaxed in Section 4.10 by replacing $-k\theta$ with the complete numerical hydrostatic moment $M_y(\theta)$.
 
 ## 4.8 Free Oscillation
 
