@@ -10,7 +10,10 @@ This folder contains the MATLAB programs developed for the Swimming Ring Stabili
 
 `swimming_ring_stability_figure1.m`
 
+<img width="3907" height="2563" alt="Figure_1" src="https://github.com/user-attachments/assets/50129848-011a-44dc-82e6-5ea873d3a060" />
+
 This script generates the static visualization presented as **Figure 1** in the report. It illustrates the toroidal swimming ring, the water surface, the center of gravity (GC), the center of buoyancy (BC), and the geometric relationship between them. The figure serves as the primary visualization of the hydrostatic configuration discussed in Chapter 3.
+
 
 ---
 
@@ -54,7 +57,7 @@ The additional model parameter
 
 is constrained by
 
--r ≤ z_G ≤ r
+$-r$ ≤ $z_G$ ≤ $r$
 
 allowing the influence of internal mass distribution on hydrostatic stability to be investigated.
 
