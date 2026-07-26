@@ -297,4 +297,11 @@ The response becomes larger when the forcing frequency approaches the natural fr
 
 ## 4.10 Nonlinear extension
 
+### 4.10.1 Motivation
+
+### 4.10.2 Nonlinear Governing Equation
+
+### 4.10.3 Numerical Implementation
+
+### 4.10.4 Advantages of the Nonlinear Model
 
