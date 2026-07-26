@@ -299,9 +299,203 @@ The response becomes larger when the forcing frequency approaches the natural fr
 
 ### 4.10.1 Motivation
 
+The linear dynamic model developed in the previous sections assumes that the hydrostatic restoring moment is proportional to the angular displacement,
+
+$$
+M_y(\theta)
+\approx
+-k\theta.
+$$
+
+This approximation is based on the local slope of the hydrostatic moment-angle curve near the equilibrium position. It is useful for small oscillations because the relationship between moment and angle is approximately linear over a limited range.
+
+However, the hydrostatic calculations in Chapter 3 do not assume a linear moment-angle relationship. At each prescribed tilt angle, the submerged geometry is recalculated, including the submerged volume, center of buoyancy, center of gravity, and resulting hydrostatic moment. As the angle increases, the shape and location of the submerged region change, so the restoring moment does not necessarily remain proportional to the tilt angle.
+
+Therefore, the linear model only uses a local approximation of the more complete hydrostatic model. To describe larger rotations, the numerical moment function obtained in Chapter 3 must be included directly in the dynamic equation.
+
 ### 4.10.2 Nonlinear Governing Equation
 
-### 4.10.3 Numerical Implementation
+The linear equation of motion is
 
-### 4.10.4 Advantages of the Nonlinear Model
+$$
+I\ddot{\theta}
++
+c\dot{\theta}
++
+k\theta = 
+M_{\mathrm{wave}}(t).
+$$
 
+In this equation, the term $k\theta$ represents the linearized hydrostatic restoring effect. Since the actual signed hydrostatic moment calculated in Chapter 3 is denoted by
+
+$$
+M_y(\theta),
+$$
+
+the linear restoring term can be replaced by the complete numerical moment function.
+
+The nonlinear governing equation becomes
+
+$$
+I\ddot{\theta} = 
+M_y(\theta) -
+c\dot{\theta}
++
+M_{\mathrm{wave}}(t),
+$$
+
+or equivalently,
+
+$$
+I\ddot{\theta} +
+c\dot{\theta} - 
+M_y(\theta) =
+M_{\mathrm{wave}}(t).
+$$
+
+The sign of $M_y(\theta)$ is already determined by the hydrostatic model. For a stable configuration, the moment acts in the direction opposite to the angular displacement. Therefore, the nonlinear equation does not require a separate constant stiffness value. Instead, the restoring behavior is determined directly by the calculated moment at the current angle.
+
+The equation remains a second-order ordinary differential equation, but it is nonlinear because $M_y(\theta)$ is not generally proportional to $\theta$. The effective hydrostatic stiffness may also change with angle. Near equilibrium, the nonlinear model should approach the linear model because
+
+$$
+M_y(\theta)
+\approx
+-k\theta.
+$$
+
+At larger angles, the nonlinear equation retains changes in the submerged geometry that are not included in the small-angle approximation.
+
+### 4.10.3 Connection Between the Hydrostatic and Dynamic Models
+
+Chapter 3 and Chapter 4 describe two different parts of the same stability problem.
+
+Chapter 3 treats the tilt angle as a prescribed input. For each selected value of $\theta$, the hydrostatic model calculates the submerged region and determines the corresponding moment,
+
+$$
+\theta
+\longrightarrow
+M_y(\theta).
+$$
+
+This calculation answers a static question: if the ring is held at a particular tilt angle, what hydrostatic moment acts on it?
+
+Chapter 4 treats the tilt angle as an unknown function of time,
+
+$$
+\theta=\theta(t).
+$$
+
+The dynamic model uses the moment from Chapter 3 to determine the angular acceleration at each time step. The current angle is first passed into the hydrostatic moment model, and the resulting value of $M_y(\theta)$ is then substituted into the rotational equation,
+
+$$
+\ddot{\theta} =
+\frac{
+M_y(\theta) -
+c\dot{\theta}
++
+M_{\mathrm{wave}}(t)
+}{
+I
+}.
+$$
+
+Therefore, the output of the Chapter 3 model becomes an input to the Chapter 4 model. The hydrostatic calculation determines the restoring moment, while the dynamic equation determines how the angle changes over time.
+
+The complete relationship can be summarized as
+
+$$
+\text{Geometry}
+\longrightarrow
+\text{Submerged Region}
+\longrightarrow
+M_y(\theta)
+\longrightarrow
+\ddot{\theta}
+\longrightarrow
+\theta(t).
+$$
+
+This connection allows the torus geometry to influence the dynamic response directly. Changes in $R$, $r$, mass distribution, or center of gravity first change the submerged geometry and hydrostatic moment. These changes then affect the angular acceleration, oscillation amplitude, and possible loss of stability.
+
+In the linear model, most of this hydrostatic information is reduced to a single parameter,
+
+$$
+k = -\left.\frac{dM_y}{d\theta} \right|_{\theta=0}.
+$$
+
+In the nonlinear model, the complete moment-angle relationship is retained. This makes the nonlinear equation a more direct continuation of the numerical hydrostatic framework developed in Chapter 3.
+
+### 4.10.4 Numerical Implementation
+
+The hydrostatic solver in Chapter 3 calculates the moment at a finite set of tilt angles,
+
+$$
+\left(
+\theta_1,M_y(\theta_1)
+\right),
+\left(
+\theta_2,M_y(\theta_2)
+\right),
+\ldots,
+\left(
+\theta_n,M_y(\theta_n)
+\right).
+$$
+
+During the dynamic simulation, the ODE solver may require the hydrostatic moment at angles located between these calculated points. An interpolation function can therefore be constructed from the numerical moment-angle data,
+
+$$
+M_y(\theta)
+\approx
+M_{\mathrm{interp}}(\theta).
+$$
+
+At each time step, the numerical procedure follows four main steps:
+
+1. Read the current angular displacement $\theta(t)$ and angular velocity $\dot{\theta}(t)$.
+
+2. Evaluate the hydrostatic moment $M_{\mathrm{interp}}(\theta)$.
+
+3. Calculate the angular acceleration,
+
+$$
+\ddot{\theta} = 
+\frac{
+M_{\mathrm{interp}}(\theta) -
+c\dot{\theta}
++
+M_{\mathrm{wave}}(t)
+}{
+I
+}.
+$$
+
+4. Use a numerical ODE solver, such as MATLAB `ode45`, to update $\theta(t)$ and $\dot{\theta}(t)$.
+
+The computational structure is
+
+```text
+Torus geometry and mass distribution
+                ↓
+Chapter 3 hydrostatic calculation
+                ↓
+Numerical moment-angle data
+                ↓
+Interpolation of M_y(theta)
+                ↓
+Chapter 4 nonlinear ODE
+                ↓
+Time-dependent response theta(t)
+```
+
+This method avoids the need to derive a closed-form expression for the hydrostatic moment. It also allows the existing Chapter 3 MATLAB calculations to be reused directly in the dynamic simulation.
+
+### 4.10.5 Advantages and Limitations
+
+The nonlinear extension preserves the complete hydrostatic moment-angle relationship instead of replacing it with a constant stiffness. It is therefore more suitable for larger rotations and for cases in which the submerged geometry changes significantly with angle.
+
+The model also provides a direct link between geometry and dynamic stability. A change in the dimensions or mass distribution of the ring produces a new hydrostatic moment curve, which then produces a different dynamic response.
+
+However, the nonlinear model still contains several simplifications. The rotational inertia is treated as constant, the damping model remains approximate, and the wave disturbance is represented by a prescribed external moment. The model also assumes that the hydrostatic moment can be evaluated from the instantaneous angle without including fluid memory or detailed unsteady flow.
+
+Despite these limitations, the nonlinear equation provides a natural extension of the hydrostatic model and a practical basis for future MATLAB simulations.
