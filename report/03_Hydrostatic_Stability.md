@@ -1,12 +1,17 @@
 # Hydrostatic Stability
 
-The geometric model developed in Chapter 2 provides the foundation for the hydrostatic analysis of the swimming ring. Rather than assuming a critical tilt angle analytically, this chapter computes the restoring behavior directly from the submerged geometry of the floating body.
+The mathematical framework established in Chapter 2 allows general mass distributions, including Fourier representations, to be incorporated into the hydrostatic model.
 
-The objective is to investigate how geometry and mass distribution influence the hydrostatic restoring ability of a floating toroidal body. For each prescribed tilt angle, the submerged region is determined numerically, allowing the submerged volume, center of buoyancy, restoring arm, and restoring moment to be evaluated. The critical stability angle, if it exists, is therefore obtained as a numerical result rather than an assumed parameter.
+To verify the numerical algorithm and develop the interactive MATLAB implementation, the present chapter adopts a simplified formulation consisting of two representative cases:
 
-Throughout this chapter, the floating height of the swimming ring is determined from the static equilibrium condition rather than prescribed as a constant. For each combination of tilt angle, geometry, and density ratio, the vertical position of the torus is solved numerically so that the buoyant force equals the total weight. This allows the submerged geometry and center of buoyancy to remain consistent with Archimedes' principle at every tested orientation.
+* the **Ideal Hydrostatic Model**, in which the center of gravity coincides with the geometric center of the torus; and
+* the **General Hydrostatic Stability Model**, in which a prescribed vertical center-of-gravity offset is introduced.
 
-Two mass-distribution assumptions are considered. The ideal model places the center of gravity at the geometric center of the torus, while the general model allows the center of gravity to move vertically within the torus cross-section. The second model is used to investigate how non-uniform internal mass distribution affects hydrostatic stability.
+These two models provide a computational foundation for future extensions involving more general mass-distribution functions.
+
+The objective of this chapter is to investigate how geometry and mass distribution influence the hydrostatic restoring behavior of a floating toroidal body. Rather than assuming a critical tilt angle analytically, the restoring behavior is computed directly from the submerged geometry of the floating body.
+
+For each prescribed tilt angle, geometry, density ratio, and center-of-gravity model, the floating height is first determined from the static equilibrium condition. The submerged volume, center of buoyancy, righting arm, and hydrostatic moment are then evaluated numerically. The resulting stability classification is therefore obtained from the computed hydrostatic moment rather than from an assumed critical-angle formula.
 
 ---
 
