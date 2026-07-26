@@ -583,9 +583,11 @@ The previous density-based critical-angle formula is not retained in the revised
 
 ## 2.9 Limitations of the Geometric Model
 
-This chapter assumes that the swimming ring remains rigid and keeps a toroidal shape. It does not yet model material elasticity, local folding, water entering the ring, or rapid changes in internal pressure.
+This chapter assumes that the swimming ring remains rigid and retains a toroidal shape. It does not model material elasticity, local folding, water entering the ring, or rapid changes in internal pressure.
 
-The Fourier density functions are mathematical scenarios rather than measured density profiles. Their purpose is to separate symmetric and asymmetric mass variations and to study how each type affects the center of gravity.
+The Fourier density functions introduced in this chapter are mathematical scenarios rather than measured density profiles. Their purpose is to distinguish between symmetric and asymmetric mass variations and to examine how these variations affect the center of gravity. More generally, the Fourier formulation provides a systematic framework for approximating periodic circumferential mass distributions.
+
+The hydrostatic implementation presented in Chapter 3 begins with two simplified center-of-gravity models. These cases are used to verify the numerical method and develop the interactive MATLAB implementation before more general Fourier-based mass distributions are introduced in future work.
 
 Local leakage may eventually require a variable-radius model,
 
@@ -593,5 +595,4 @@ $$
 r=r(\phi),
 $$
 
-because deflation can change the geometry as well as the internal air mass. This extension is not included in the baseline hydrostatic model but can be added after the constant-radius calculation has been verified.
-
+because deflation can change the geometry as well as the internal air mass. This extension is not included in the current hydrostatic model and should be introduced only after the constant-radius calculation has been verified.
