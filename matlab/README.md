@@ -18,6 +18,9 @@ This script generates the static visualization presented as **Figure 1** in the 
 
 `Ideal_Hydrostatic_Model.m`
 
+* Sample:
+  <img width="844" height="709" alt="Animation_1" src="https://github.com/user-attachments/assets/15065792-18d3-4b72-8355-4340339c16f7" />
+
 This interactive simulator implements the ideal hydrostatic model developed in Chapter 3.
 
 The swimming ring is assumed to have
