@@ -1,4 +1,11 @@
-# Discussion
+# Results and Discussion
+   — Hydrostatic results
+   — Effect of geometry
+   — Effect of density ratio
+   — Effect of GC offset
+   — Stability transitions
+   — Dynamic-response examples
+   — Interpretation of results
 ## 6.1
 ## 6.2
 ## 6.3 Model Limitations and Future Improvements
