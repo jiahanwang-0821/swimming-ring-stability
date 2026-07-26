@@ -85,7 +85,73 @@ The hydrostatic moment depends mainly on the angular displacement, the damping m
 
 ## 4.8 Free Oscillation
 
+In the absence of external wave excitation,
+
+$$
+M_{\mathrm{wave}}(t)=0,
+$$
+
+and the linearized equation becomes
+
+$$
+I_{\mathrm{total}}\ddot{\theta}
++
+c\dot{\theta}
++
+k\theta = 
+0.
+$$
+
+The natural angular frequency and damping ratio are
+
+$$
+\omega_n = 
+\sqrt{\frac{k}{I_{\mathrm{total}}}},
+$$
+
+and
+
+$$
+\zeta = 
+\frac{c}{2\sqrt{kI_{\mathrm{total}}}}.
+$$
+
+For the expected underdamped case, the swimming ring oscillates about its equilibrium orientation while the amplitude decreases because of water resistance. A larger rotational inertia produces a slower response, while a larger hydrostatic stiffness produces a higher natural frequency.
+
 ## 4.9 Forced Oscillation
+
+For periodic wave excitation,
+
+$$
+M_{\mathrm{wave}}(t) = 
+M_0\sin(\Omega t),
+$$
+
+the governing equation is
+
+$$
+I_{\mathrm{total}}\ddot{\theta}
++
+c\dot{\theta}
++
+k\theta = 
+M_0\sin(\Omega t).
+$$
+
+The steady-state amplitude is
+
+$$
+\Theta(\Omega) = 
+\frac{M_0}{
+\sqrt{
+\left(k-I_{\mathrm{total}}\Omega^2\right)^2
++
+(c\Omega)^2
+}
+}.
+$$
+
+The response becomes larger when the forcing frequency approaches the natural frequency. In the swimming-ring model, this represents a simplified resonance-like response to repeated wave disturbances.
 
 ## 4.10 Nonlinear extension
 
