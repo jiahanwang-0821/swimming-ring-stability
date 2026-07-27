@@ -1,16 +1,18 @@
 # Problem Statement
 
-Swimming rings are common floating devices used in swimming pools, beaches, and water recreation. Their stability affects both user safety and comfort. Although the basic idea of a swimming ring appears simple, its behavior on water depends on several mathematical and physical factors, including geometry, buoyancy, gravity, center of mass, center of buoyancy, and tilt angle.
+Floating rings are widely used as recreational flotation devices in swimming pools, lakes, and coastal environments. Although their appearance is simple, their floating behavior is governed by the interaction between geometry, buoyancy, gravity, and mass distribution. These factors determine whether a disturbed floating ring returns to its equilibrium position or continues to rotate toward instability. Understanding this behavior is therefore both mathematically interesting and practically relevant for flotation-device design.
 
-This project originated from my IB Mathematics AA HL Internal Assessment, where I calculated the volume of different swimming rings and analyzed their stability using buoyancy and geometric modeling. In the original work, the main focus was on static stability: how the relative positions of the gravity center (GC) and buoyancy center (BC) determine whether a tilted swimming ring can return to a stable state.
+This study originated from my International Baccalaureate (IB) Mathematics AA HL Internal Assessment, in which the volume of several swimming-ring geometries was analyzed using geometric methods, including the Disk Method and Pappus' Centroid Theorem. The original investigation focused primarily on static buoyancy and geometric stability.
 
-This GitHub project extends that work into an ongoing applied mathematics project. Instead of analyzing only one fixed tilted state, this project extends the original model through MATLAB visualization and interactive simulation, allowing the effects of tilt angle and torus geometry on stability to be explored interactively. The long-term goal is to further extend the model from static stability to dynamic stability, including oscillation under wave disturbance.
+The present work extends that study into a more comprehensive applied mathematics project. A complete hydrostatic model is first developed to determine the submerged geometry, floating equilibrium, center of buoyancy, righting arm, and restoring moment of an ideal floating torus. Based on this hydrostatic framework, a dynamic stability model is then established to describe the rotational response of the floating body under disturbances. All mathematical models are implemented numerically in MATLAB, allowing the restoring behavior to be evaluated over a wide range of tilt angles.
 
-The central research questions are:
+Rather than constructing a full computational fluid dynamics (CFD) model, this project adopts a simplified mathematical framework that emphasizes the relationship between geometry and hydrostatic stability. The objective is to develop a computational model that connects geometric modeling, buoyancy, hydrostatic equilibrium, and rotational dynamics in a mathematically consistent manner while remaining computationally accessible.
 
-* How does the geometry of a swimming ring affect its stability?
-* How do buoyancy and gravity interact in floating systems?
-* What factors determine the critical tilt angle of a swimming ring?
-* How can computational simulation be used to evaluate stability?
+The central research questions of this study are:
 
-This project is not intended to be a complete fluid-mechanics or CFD simulation. Instead, it is a simplified applied mathematics model that connects geometry, buoyancy, static equilibrium, and computational visualization.
+* How can the hydrostatic restoring behavior of a floating torus be determined directly from its submerged geometry?
+* How do geometric parameters and center-of-gravity location influence hydrostatic stability?
+* How can the computed hydrostatic restoring moment be incorporated into a nonlinear dynamic model?
+* How can numerical computation be used to investigate the stability characteristics of floating toroidal bodies?
+
+Although the present work focuses on an idealized swimming ring, the mathematical framework may also provide a foundation for studying other floating toroidal structures and for future extensions involving asymmetric mass distributions, external loading, or wave excitation.
