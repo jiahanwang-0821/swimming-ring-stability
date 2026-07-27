@@ -1015,19 +1015,6 @@ $$
 
 These checks confirm that the numerical implementation satisfies the analytical torus-volume relation, Archimedes' equilibrium condition, the zero-tilt symmetry conditions, and the expected odd symmetry of the hydrostatic moment.
 
-| Numerical check | Result |
-|---|---:|
-| Analytical torus volume | $0.2266924761\ \mathrm{m^3}$ |
-| Numerical torus volume | $0.2266924761\ \mathrm{m^3}$ |
-| Relative torus-volume error | $2.45\times10^{-16}$ |
-| Zero-tilt floating height | $0.1635082744\ \mathrm{m}$ |
-| Target displaced volume | $0.0022669248\ \mathrm{m^3}$ |
-| Computed displaced volume | $0.0022669246\ \mathrm{m^3}$ |
-| Maximum relative displacement error | $9.99\times10^{-8}$ |
-| Zero-tilt righting arm | $0\ \mathrm{m}$ |
-| Zero-tilt restoring moment | $0\ \mathrm{N\,m}$ |
-| Relative moment-symmetry error | $7.03\times10^{-16}$ |
-
 
 ### 3.12 Generation of Moment-Angle Data
 
