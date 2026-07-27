@@ -1,58 +1,255 @@
 # Computational Implementation and Numerical Simulation
 
-### 5.1 Numerical Framework
+## 5.1 Numerical Framework
 
-The mathematical models developed in Chapters 3 and 4 were implemented in MATLAB to evaluate the hydrostatic stability and dynamic response of the swimming ring.
+The mathematical models developed in Chapters 3 and 4 were implemented in MATLAB to evaluate the hydrostatic stability and rotational response of the swimming ring.
 
-The numerical implementation consists of two main components. The first component evaluates the hydrostatic restoring moment by computing the submerged geometry at a prescribed tilt angle. The second component uses the resulting moment-angle relationship to simulate the rotational motion through the governing differential equation.
+The computational framework consists of two connected components:
 
-The overall computational workflow is summarized below.
+1. a hydrostatic calculation that determines the restoring moment at prescribed tilt angles; and
+2. a dynamic calculation that uses the computed moment-angle relationship to simulate the angular motion of the ring.
+
+The hydrostatic component begins with the torus geometry and physical parameters, including the major radius $R$, tube radius $r$, density ratio $\lambda$, water density $\rho_{\mathrm{water}}$, and center-of-gravity offset $z_G$.
+
+For each prescribed tilt angle $\theta$, MATLAB solves the floating-equilibrium condition
+
+$$
+V_{\mathrm{sub}}(\theta,h) = 
+\lambda V_{\mathrm{torus}},
+$$
+
+where $h$ is the equilibrium floating height and
+
+$$
+V_{\mathrm{torus}} = 
+2\pi^2Rr^2.
+$$
+
+The submerged volume is evaluated using the semi-analytical integration method developed in Chapter 3. The integration around the major-circle coordinate is treated analytically, while the remaining tube cross-section is evaluated numerically.
+
+After the equilibrium height has been determined, the submerged first moments are used to calculate the center of buoyancy. The signed righting arm is then obtained from
+
+$$
+GZ = 
+x_B-x_G,
+$$
+
+and the hydrostatic moment is calculated from
+
+$$
+M_y = 
+-WGZ,
+$$
+
+where $W$ is the total weight of the modeled ring.
+
+Repeating this calculation over a prescribed sequence of tilt angles produces the numerical moment-angle data
+
+$$
+(\theta_i,M_y(\theta_i)),
+\qquad
+i=1,\ldots,n.
+$$
+
+These values are stored in MATLAB and used to construct a continuous approximation of the restoring-moment function.
+
+For the dynamic model, the discrete moment-angle data are interpolated so that the restoring moment can be evaluated continuously during the time integration. The resulting function is supplied to the nonlinear rotational equation developed in Chapter 4.
+
+The angular displacement and angular velocity are then obtained numerically using MATLAB's `ode45` solver.
+
+The complete computational workflow is summarized below.
 
 ```text
 Input geometry and physical parameters
                 ↓
-Generate torus geometry
+Construct tube cross-section grid
+                ↓
+Evaluate submerged angular intervals
+                ↓
+Solve equilibrium floating height
                 ↓
 Compute submerged volume
                 ↓
-Evaluate center of buoyancy
+Compute center of buoyancy
                 ↓
-Calculate hydrostatic restoring moment
+Determine center of gravity
                 ↓
-Construct moment-angle curve
+Calculate righting arm and hydrostatic moment
                 ↓
-Interpolation
+Generate moment-angle data
                 ↓
-Dynamic ODE solver (ode45)
+Interpolate restoring-moment function
                 ↓
-Angular response θ(t)
+Solve nonlinear rotational ODE using ode45
+                ↓
+Obtain angular response θ(t) and angular velocity θ̇(t)
 ```
 
-The hydrostatic model provides the restoring moment for each prescribed tilt angle. These numerical results are then interpolated and supplied to the dynamic solver, allowing the angular motion to be simulated continuously in time.
+## 5.2 Numerical Verification
 
-This modular implementation separates the hydrostatic calculation from the dynamic simulation while maintaining a direct connection between the two models.
+Before interpreting the hydrostatic simulation results, several numerical verification tests were performed to confirm the correctness of the MATLAB implementation.
 
-### 5.2 Hydrostatic Simulation
+### 5.2.1 Verification of the Torus Volume
 
-The hydrostatic simulation follows the numerical procedure developed in Chapter 3. For each prescribed tilt angle, MATLAB determines the submerged portion of the torus, computes the displaced water volume, evaluates the center of buoyancy, and calculates the resulting hydrostatic restoring moment.
+The numerical integration was first verified by comparing the computed torus volume with the analytical expression
 
-Repeating this procedure over a sequence of tilt angles produces the complete moment-angle relationship used throughout the remainder of the study.
+$$
+V_{\mathrm{torus}} = 
+2\pi^2Rr^2.
+$$
 
-[figure 2]
+For the baseline geometry,
 
-Figure 2 explains "Hydrostatic restoring moment versus tilt angle".
+$$
+R=0.375\ \mathrm{m},
+\qquad
+r=0.175\ \mathrm{m},
+$$
 
-Additional visualizations, including the submerged geometry and the locations of the center of gravity and center of buoyancy, were generated to verify the numerical calculations and to illustrate the physical behavior of the model.
+the analytical torus volume is
 
-[figure 3]
+$$
+V_{\mathrm{analytical}} = 
+0.2266924761\ \mathrm{m^3}.
+$$
 
-Figure 3
+The MATLAB implementation produced
 
-Example submerged geometry.
-## 5.3 Dynamic Simulation
+$$
+V_{\mathrm{numerical}} = 
+0.2266924761\ \mathrm{m^3},
+$$
 
-## 5.4 Interactive MATLAB Application
+giving a relative error of
 
-## 5.5 Numerical Verification
+$$
+2.45\times10^{-16}.
+$$
 
-## 5.6 Summary
+This error is at the level of floating-point roundoff and indicates that the numerical integration reproduces the analytical torus volume essentially exactly.
+
+---
+
+### 5.2.2 Verification of Floating Equilibrium
+
+The floating-equilibrium solver was then verified at the upright configuration,
+
+$$
+\theta=0^\circ.
+$$
+
+For the prescribed density ratio
+
+$$
+\lambda=0.010,
+$$
+
+the target displaced volume is
+
+$$
+V_{\mathrm{target}} = 
+0.0022669248\ \mathrm{m^3}.
+$$
+
+The numerical solver obtained an equilibrium floating height of
+
+$$
+h = 
+0.1635082744\ \mathrm{m},
+$$
+
+and a displaced volume of
+
+$$
+V_{\mathrm{sub}} = 
+0.0022669246\ \mathrm{m^3}.
+$$
+
+The maximum relative displacement-volume error was
+
+$$
+9.99\times10^{-8},
+$$
+
+confirming that the bisection algorithm satisfies Archimedes' principle to high numerical accuracy.
+
+---
+
+### 5.2.3 Verification of Symmetry
+
+The ideal hydrostatic model assumes a uniform mass distribution and therefore possesses geometric symmetry about the vertical plane.
+
+Consequently, the restoring moment should satisfy
+
+$$
+M_y(-\theta) = -
+M_y(\theta).
+$$
+
+The numerical implementation was tested over the complete angle range.
+
+The maximum absolute symmetry error was
+
+$$
+5.33\times10^{-15}\ \mathrm{N\,m},
+$$
+
+while the relative symmetry error was
+
+$$
+7.03\times10^{-16}.
+$$
+
+These values are close to machine precision, indicating that the numerical implementation preserves the expected symmetry of the hydrostatic model.
+
+At the upright equilibrium,
+
+$$
+\theta=0^\circ,
+$$
+
+the numerical calculation also gives
+
+$$
+x_B=0,
+$$
+
+$$
+GZ=0,
+$$
+
+and
+
+$$
+M_y=0,
+$$
+
+which are consistent with the theoretical symmetry of the ideal torus.
+
+---
+
+### 5.2.4 Summary of Numerical Verification
+
+The verification results are summarized in Table 5.1.
+
+| Quantity | Numerical Result |
+|:---|---:|
+| Analytical torus volume | $0.2266924761\ \mathrm{m^3}$ |
+| Numerical torus volume | $0.2266924761\ \mathrm{m^3}$ |
+| Relative volume error | $2.45\times10^{-16}$ |
+| Equilibrium floating height | $0.1635082744\ \mathrm{m}$ |
+| Target displaced volume | $0.0022669248\ \mathrm{m^3}$ |
+| Computed displaced volume | $0.0022669246\ \mathrm{m^3}$ |
+| Maximum displacement-volume error | $9.99\times10^{-8}$ |
+| Maximum moment-symmetry error | $5.33\times10^{-15}\ \mathrm{N\,m}$ |
+| Relative moment-symmetry error | $7.03\times10^{-16}$ |
+
+Overall, the verification results demonstrate that the hydrostatic solver accurately reproduces the analytical torus volume, satisfies the floating-equilibrium condition, and preserves the expected symmetry of the ideal hydrostatic model. These numerical checks provide confidence that the subsequent simulation results reflect the mathematical model rather than numerical artifacts.
+
+## 5.3 Hydrostatic Results
+
+## 5.4 Dynamic Simulation
+
+## 5.5 Interactive MATLAB Application
+
+## 5.6 Discussion
