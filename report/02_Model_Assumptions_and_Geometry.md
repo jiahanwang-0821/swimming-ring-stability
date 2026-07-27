@@ -1,8 +1,8 @@
 # Model Assumptions and Geometry
 
-The original IB Mathematics IA modeled a swimming ring as a torus and used this geometry to study volume and stability. However, some parts of the original stability model were based on assumptions that were not fully explained. In this project, the model is rebuilt from the beginning so that each formula has a clear mathematical or physical meaning.
+The present study focuses primarily on hydrostatic stability under two representative center-of-gravity assumptions: an ideal model with a uniform mass distribution and a generalized model with a prescribed center-of-gravity offset. These two cases provide a sufficiently simple framework for verifying the numerical method while capturing the principal features of hydrostatic restoring behavior.
 
-This chapter defines the geometry, coordinate system, and mass-distribution assumptions used throughout the project. The hydrostatic calculations, including the submerged volume, center of buoyancy, restoring moment, and critical stability condition, are developed in the next chapter.
+Although these simplified models form the basis of the computational implementation presented in the following chapters, they do not represent every possible mass distribution that may occur in a real swimming ring. For this reason, several more general mathematical representations are also introduced in this chapter. These formulations are not implemented in the present hydrostatic simulations but provide possible extensions of the model for future investigation.
 
 ## 2.1 Scope of the Model
 
@@ -153,7 +153,7 @@ $$
 
 The parameter $h$ is not assumed to remain constant. When the swimming ring tilts, its vertical position may need to change so that the buoyant force continues to balance its weight. The function $h(\theta)$ will therefore be determined numerically in the hydrostatic model.
 
-## 2.4 Mass and Density Assumptions
+## 2.4 Mass Distribution Models
 
 The total mass of the swimming ring is separated into two components:
 
@@ -268,7 +268,7 @@ $$
 \end{pmatrix}.
 $$
 
-This model can represent a symmetric manufacturing variation without introducing a one-sided mass bias.
+This model can represent a symmetric manufacturing variation without introducing a one-sided mass bias. Although this model is not used in the present hydrostatic implementation, it illustrates that a non-uniform mass distribution does not necessarily shift the center of gravity and therefore serves as a useful reference for future extensions.
 
 ### 2.4.3 Asymmetric Distribution
 
@@ -333,7 +333,7 @@ $$
 \end{pmatrix}.
 $$
 
-This result shows that the first cosine mode has a clear physical effect: it moves the center of gravity toward the heavier side.
+This result shows that the first cosine mode has a clear physical effect: it moves the center of gravity toward the heavier side. Unlike the baseline hydrostatic models considered later in this study, this asymmetric distribution is introduced primarily as a possible extension for investigating the influence of manufacturing imperfections or localized loading.
 
 ### 2.4.4 Fourier Representation
 
@@ -399,11 +399,15 @@ $$
 
 The Fourier representation does not claim that a real swimming ring follows an exact cosine pattern. Instead, it provides a systematic way to test how different periodic mass distributions affect the center of gravity and the later stability calculations.
 
-Rather than assuming that every swimming ring follows one specific density profile, this project adopts a Fourier representation as a general mathematical framework. The uniform, symmetric, and asymmetric models introduced above are treated as special cases within this framework. This approach allows different manufacturing variations, asymmetric loading, and localized defects to be investigated using the same mathematical model while keeping the assumptions clear and consistent.
+The Fourier representation is introduced here as a general mathematical framework rather than as a specific physical model for a swimming ring.
+
+In the present study, the hydrostatic calculations are restricted to two representative center-of-gravity models in order to establish and verify the numerical methodology. Nevertheless, the Fourier formulation provides a systematic way of representing arbitrary periodic mass distributions and therefore offers a natural extension of the current model.
+
+Future work may combine the Fourier representation with the hydrostatic solver developed in Chapter 3 to investigate how higher-order circumferential mass variations influence the center of gravity, restoring moment, and dynamic stability. Consequently, the Fourier model should be viewed as a theoretical extension of the present framework rather than a component of the current numerical implementation.
 
 ## 2.5 Internal Air Distribution
 
-The internal air density may also be represented as a function of the circumferential angle:
+Although the present hydrostatic calculations do not explicitly model non-uniform air distribution, the internal air mass provides an interesting extension of the mathematical framework. One motivation for introducing this model is that the original IB Mathematics IA assumed a uniform internal mass distribution without examining how variations in enclosed air might influence the overall center of gravity. The formulation presented here addresses that limitation and establishes a possible direction for future investigation.
 
 $$
 \rho_{\mathrm{air}} = 
