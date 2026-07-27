@@ -425,70 +425,26 @@ $$
 
 In the nonlinear model, the complete moment-angle relationship is retained. This makes the nonlinear equation a more direct continuation of the numerical hydrostatic framework developed in Chapter 3.
 
-### 4.10.4 Numerical Implementation
+### 4.10.4 Numerical Solution Strategy
 
-The hydrostatic solver in Chapter 3 calculates the moment at a finite set of tilt angles,
-
-$$
-\left(
-\theta_1,M_y(\theta_1)
-\right),
-\left(
-\theta_2,M_y(\theta_2)
-\right),
-\ldots,
-\left(
-\theta_n,M_y(\theta_n)
-\right).
-$$
-
-During the dynamic simulation, the ODE solver may require the hydrostatic moment at angles located between these calculated points. An interpolation function can therefore be constructed from the numerical moment-angle data,
+The hydrostatic solver developed in Chapter 3 provides the restoring moment at a discrete set of tilt angles,
 
 $$
-M_y(\theta)
-\approx
-M_{\mathrm{interp}}(\theta).
+\left(\theta_i,M_y(\theta_i)\right),
+\qquad
+i=1,\ldots,n.
 $$
 
-At each time step, the numerical procedure follows four main steps:
-
-1. Read the current angular displacement $\theta(t)$ and angular velocity $\dot{\theta}(t)$.
-
-2. Evaluate the hydrostatic moment $M_{\mathrm{interp}}(\theta)$.
-
-3. Calculate the angular acceleration,
+To use these data in the nonlinear dynamic equation, a continuous approximation of the restoring-moment function is constructed by interpolation. The resulting function is then evaluated at the instantaneous angle $\theta(t)$ during the numerical solution of
 
 $$
-\ddot{\theta} = 
-\frac{
-M_{\mathrm{interp}}(\theta) -
-c\dot{\theta}
-+
-M_{\mathrm{wave}}(t)
-}{
-I
-}.
+I\ddot{\theta} +
+c\dot{\theta} -
+M_y(\theta) = 
+M_{\mathrm{wave}}(t).
 $$
 
-4. Use a numerical ODE solver, such as MATLAB `ode45`, to update $\theta(t)$ and $\dot{\theta}(t)$.
-
-The computational structure is
-
-```text
-Torus geometry and mass distribution
-                ↓
-Chapter 3 hydrostatic calculation
-                ↓
-Numerical moment-angle data
-                ↓
-Interpolation of M_y(theta)
-                ↓
-Chapter 4 nonlinear ODE
-                ↓
-Time-dependent response theta(t)
-```
-
-This method avoids the need to derive a closed-form expression for the hydrostatic moment. It also allows the existing Chapter 3 MATLAB calculations to be reused directly in the dynamic simulation.
+The detailed computational implementation, including the interpolation procedure and time integration of the nonlinear equation, is presented in Chapter 5.
 
 ### 4.10.5 Advantages and Limitations
 
