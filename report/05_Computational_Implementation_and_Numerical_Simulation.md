@@ -84,6 +84,7 @@ Solve nonlinear rotational ODE using ode45
                 ↓
 Obtain angular response θ(t) and angular velocity θ̇(t)
 ```
+This chapter presents the numerical implementation of the mathematical models developed in the previous chapters. The computational procedure is first verified against analytical solutions before being used to investigate the hydrostatic restoring behavior and the nonlinear dynamic response of the floating torus.
 
 ## 5.2 Numerical Verification
 
