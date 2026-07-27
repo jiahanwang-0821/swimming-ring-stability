@@ -498,4 +498,4 @@ The model also provides a direct link between geometry and dynamic stability. A 
 
 However, the nonlinear model still contains several simplifications. The rotational inertia is treated as constant, the damping model remains approximate, and the wave disturbance is represented by a prescribed external moment. The model also assumes that the hydrostatic moment can be evaluated from the instantaneous angle without including fluid memory or detailed unsteady flow.
 
-Despite these limitations, the nonlinear equation provides a natural extension of the hydrostatic model and a practical basis for future MATLAB simulations.
+Despite these limitations, the nonlinear equation provides a natural extension of the hydrostatic model and a practical basis for future MATLAB simulations. The nonlinear governing equation established in this chapter forms the basis of the numerical simulations presented in Chapter 5.
