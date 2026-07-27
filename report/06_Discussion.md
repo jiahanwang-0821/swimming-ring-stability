@@ -1,4 +1,4 @@
-# Results and Discussion
+#Discussion
 
 ## 6.1 Hydrostatic Results
 
