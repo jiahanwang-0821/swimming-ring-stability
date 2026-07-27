@@ -1,4 +1,4 @@
-# Numerical Implementation and MATLAB Simulation
+# Computational Implementation and Numerical Simulation
 
 ### 5.1 Numerical Framework
 
@@ -32,8 +32,23 @@ The hydrostatic model provides the restoring moment for each prescribed tilt ang
 
 This modular implementation separates the hydrostatic calculation from the dynamic simulation while maintaining a direct connection between the two models.
 
-## 5.2 Hydrostatic Simulation
+### 5.2 Hydrostatic Simulation
 
+The hydrostatic simulation follows the numerical procedure developed in Chapter 3. For each prescribed tilt angle, MATLAB determines the submerged portion of the torus, computes the displaced water volume, evaluates the center of buoyancy, and calculates the resulting hydrostatic restoring moment.
+
+Repeating this procedure over a sequence of tilt angles produces the complete moment-angle relationship used throughout the remainder of the study.
+
+[figure 2]
+
+Figure 2 explains "Hydrostatic restoring moment versus tilt angle".
+
+Additional visualizations, including the submerged geometry and the locations of the center of gravity and center of buoyancy, were generated to verify the numerical calculations and to illustrate the physical behavior of the model.
+
+[figure 3]
+
+Figure 3
+
+Example submerged geometry.
 ## 5.3 Dynamic Simulation
 
 ## 5.4 Interactive MATLAB Application
