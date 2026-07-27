@@ -248,8 +248,175 @@ Overall, the verification results demonstrate that the hydrostatic solver accura
 
 ## 5.3 Hydrostatic Results
 
+The hydrostatic model was evaluated over a prescribed range of tilt angles using the numerical procedure described in Chapter 3. For each prescribed angle, the equilibrium floating height was first determined from Archimedes' principle. The center of buoyancy was then calculated from the submerged geometry, followed by the righting arm and the corresponding hydrostatic restoring moment.
+
+The resulting hydrostatic characteristics are presented below.
+
+---
+
+### 5.3.1 Restoring Moment–Angle Relationship
+
+Figure 2 shows the computed hydrostatic restoring moment as a function of the prescribed tilt angle for the baseline ideal torus model.
+
+<img width="1338" height="983" alt="figure_2" src="https://github.com/user-attachments/assets/c8ef8e43-3741-47db-a7ed-4075b59b363a" />
+
+（Figure 2: Numerically computed hydrostatic restoring moment as a function of tilt angle）
+
+The restoring moment is antisymmetric with respect to the upright equilibrium,
+
+$$
+M_y(-\theta) = - 
+M_y(\theta),
+$$
+
+which is consistent with the geometric symmetry of the ideal torus and the numerical verification presented in the previous section.
+
+At
+
+$$
+\theta=0^\circ,
+$$
+
+the restoring moment is zero because the center of buoyancy and the center of gravity lie on the same vertical line.
+
+For positive tilt angles, the calculated restoring moment is negative, whereas for negative tilt angles it becomes positive. Under the sign convention adopted in Chapter 3, the restoring moment therefore acts opposite to the imposed tilt direction throughout the investigated angle range.
+
+The magnitude of the restoring moment increases rapidly for small tilt angles, reaches a maximum at intermediate orientations, and gradually decreases as the tilt angle becomes larger. No change in the sign of the restoring moment is observed within the computed range, indicating that the baseline ideal torus remains hydrostatically restoring for all simulated orientations.
+
+---
+
+### 5.3.2 Righting Arm
+
+The corresponding righting arm is shown in Figure 3.
+
+<img width="1352" height="983" alt="figure_3" src="https://github.com/user-attachments/assets/ece82f51-27cc-43db-a033-64b6986292e5" />
+
+(Figure 3. Righting arm as a function of tilt angle).
+
+The righting arm is defined by
+
+$$
+GZ = 
+x_B-x_G.
+$$
+
+Since the total weight remains constant,
+
+$$
+M_y = 
+-WGZ,
+$$
+
+the righting-arm curve has the same overall shape as the restoring-moment curve.
+
+As the torus tilts, the center of buoyancy shifts toward the submerged side of the body. This horizontal displacement produces an increasing righting arm and therefore a larger restoring moment. At larger tilt angles, the migration of the center of buoyancy becomes less pronounced, causing both the righting arm and the restoring moment to decrease gradually.
+
+---
+
+### 5.3.3 Small-Angle Behavior
+
+To examine the numerical behavior near the upright equilibrium more clearly, the restoring moment is shown again using an expanded angular scale in Figure 4.
+
+<img width="1234" height="828" alt="figure_4" src="https://github.com/user-attachments/assets/cdbc779b-62c2-4634-beb3-f0eeafcf1722" />
+
+(Figure 5.3. Restoring moment near the upright equilibrium).
+
+The restoring moment varies continuously across
+
+$$
+\theta=0^\circ,
+$$
+
+and passes smoothly through the origin,
+
+$$
+M_y(0)=0.
+$$
+
+The relatively steep slope near the upright position is a consequence of the shallow equilibrium immersion of the baseline model. For the adopted density ratio,
+
+$$
+\lambda=0.010,
+$$
+
+the equilibrium floating height is
+
+$$
+h=0.1635082744\ \mathrm{m},
+$$
+
+while the tube radius is
+
+$$
+r=0.175\ \mathrm{m}.
+$$
+
+The corresponding immersion depth is therefore
+
+$$
+d = 
+r-h =
+0.01149\ \mathrm{m},
+$$
+
+or approximately
+
+$$
+1.15\ \mathrm{cm}.
+$$
+
+Because only a thin portion of the torus is submerged, even a small change in the tilt angle produces a noticeable redistribution of the displaced water volume. 
+
+Although the restoring-moment curve in Figure 2 appears almost discontinuous near the upright position because of the large plotting range, the enlarged view in Figure 4 confirms that the numerical solution remains continuous and smooth across $\theta=0^\circ$. This indicates that the apparent sharp transition in Figure 2 is a visualization effect rather than a numerical artifact.
+
+Consequently, the center of buoyancy moves rapidly near the upright equilibrium, leading to the relatively large initial slope of the restoring-moment curve.
+
 ## 5.4 Dynamic Simulation
 
-## 5.5 Interactive MATLAB Application
+The hydrostatic restoring moment obtained in the previous section was subsequently incorporated into the dynamic stability model developed in Chapter 4. Rather than approximating the restoring moment using a linear expression, the complete numerically computed moment-angle relationship was used throughout the simulation.
 
-## 5.6 Discussion
+The discrete restoring-moment data generated by the hydrostatic solver were interpolated to construct a continuous restoring-moment function,
+
+$$
+M_y=M_y(\theta),
+$$
+
+which was evaluated whenever required during numerical integration.
+
+The rotational equation of motion,
+
+$$
+I\ddot{\theta}+c\dot{\theta}+M_y(\theta)=0,
+$$
+
+was solved using MATLAB's adaptive Runge–Kutta solver (`ode45`). The numerical solver automatically adjusted the integration step size according to the local truncation error, providing stable and efficient solutions throughout the simulation.
+
+For each simulation, the prescribed initial angular displacement and angular velocity were specified while all geometric and physical parameters remained unchanged. The numerical solution produced the time histories of the angular displacement,
+
+$$
+\theta(t),
+$$
+
+and angular velocity,
+
+$$
+\dot{\theta}(t),
+$$
+
+which describe the transient rotational response of the floating torus.
+
+Compared with a conventional linear restoring model, the present approach directly incorporates the nonlinear hydrostatic restoring moment obtained from the submerged geometry. Consequently, the simulated motion remains consistent with the hydrostatic calculations over the entire range of prescribed tilt angles and avoids the small-angle approximation commonly adopted in simplified stability analyses.
+
+The dynamic simulation therefore establishes the connection between the hydrostatic model developed in Chapter 3 and the nonlinear rotational dynamics formulated in Chapter 4, providing a unified computational framework for predicting the stability characteristics of the floating torus.
+
+## 5.5 Summary
+
+This chapter presented the computational implementation of the proposed hydrostatic and dynamic stability models.
+
+The numerical implementation was first described, followed by a series of verification tests demonstrating agreement with analytical results, accurate satisfaction of the floating-equilibrium condition, and preservation of the expected geometric symmetry. These verification results provide confidence in the correctness of the MATLAB implementation.
+
+The hydrostatic simulations then quantified the restoring moment and righting arm over a wide range of tilt angles. The results show that the restoring moment varies continuously with the prescribed tilt angle and remains consistent with the theoretical relationship derived in Chapter 3. An enlarged view near the upright equilibrium further confirms the smooth numerical behavior of the hydrostatic solver around the equilibrium configuration.
+
+Finally, the computed restoring-moment data were incorporated into the nonlinear dynamic model. By combining the hydrostatic calculations with numerical time integration, the proposed computational framework establishes a direct connection between the buoyancy-induced restoring moment and the rotational response of the floating torus.
+
+The following chapter discusses the physical interpretation of the numerical results, the assumptions adopted in the present model, and possible directions for future improvements.
