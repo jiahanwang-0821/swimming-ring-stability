@@ -294,47 +294,94 @@ s(R+s\cos v)
 \,ds\,dv\,du.
 $$
 
-The submerged boundary depends on the tilt angle and is not generally represented by constant limits in the parameter variables. The integral is therefore approximated by a three-dimensional midpoint sum.
+The submerged boundary depends on the tilt angle and is not generally represented by constant limits in the parameter variables. The submerged boundary depends on the tilt angle and floating height and is not generally represented by constant limits in the toroidal parameters. A direct three-dimensional binary-cell approximation would classify every integration cell as either fully submerged or fully emerged. Such a method produces a discontinuous approximation of the displaced volume, particularly when the density ratio is small and only a thin portion of the torus is submerged.
 
-Divide the parameter intervals into
+To improve the numerical accuracy, the integration over the major-circle parameter $u$ is evaluated analytically for each midpoint in the tube cross-section.
 
-$$
-N_u,\qquad N_v,\qquad N_s
-$$
-
-subintervals, with step sizes
+Define
 
 $$
-\Delta u=
-\frac{2\pi}{N_u},
-$$
-
-$$
-\Delta v=
-\frac{2\pi}{N_v},
+q=R+s\cos v,
 $$
 
 and
 
 $$
-\Delta s=
-\frac{r}{N_s}.
+w=s\sin v.
 $$
 
-The midpoint values are
+The rotated vertical coordinate may then be written as
 
 $$
-u_i=
-\left(i-\frac12\right)\Delta u,
-\qquad
-i=1,\ldots,N_u,
+Z=
+-q\sin\theta\cos u
++w\cos\theta
++h.
 $$
+
+For fixed values of $v$, $s$, $\theta$, and $h$, define
+
+$$
+C=-q\sin\theta,
+$$
+
+and
+
+$$
+D=w\cos\theta+h.
+$$
+
+The submerged condition becomes
+
+$$
+C\cos u+D\le0.
+$$
+
+This condition determines an interval, or a union of intervals, in the variable $u$. The total submerged angular length is denoted by
+
+$$
+L_u(v,s;\theta,h)
+=
+\int_{\{u:Z\le0\}}du.
+$$
+
+The submerged volume can therefore be reduced from a three-dimensional integral to
+
+$$
+V_{\mathrm{sub}}(\theta,h)
+=
+\int_0^{2\pi}
+\int_0^r
+L_u(v,s;\theta,h)
+s(R+s\cos v)
+\,ds\,dv.
+$$
+
+The remaining integration over the tube cross-section is evaluated using a two-dimensional midpoint sum. Divide the intervals into
+
+$$
+N_v
+\qquad\text{and}\qquad
+N_s
+$$
+
+subintervals, with
+
+$$
+\Delta v=\frac{2\pi}{N_v},
+$$
+
+and
+
+$$
+\Delta s=\frac{r}{N_s}.
+$$
+
+At the midpoint values
 
 $$
 v_j=
 \left(j-\frac12\right)\Delta v,
-\qquad
-j=1,\ldots,N_v,
 $$
 
 and
@@ -342,63 +389,22 @@ and
 $$
 s_k=
 \left(k-\frac12\right)\Delta s,
-\qquad
-k=1,\ldots,N_s.
 $$
 
-Each parameter-space cell represents the physical volume
+the submerged volume is approximated by
 
 $$
-\Delta V_{ijk}=
-s_k(R+s_k\cos v_j)
-\Delta s\,\Delta v\,\Delta u.
-$$
-
-The numerical approximation of the submerged volume is
-
-$$
-V_{\mathrm{sub}}(\theta)
+V_{\mathrm{sub}}(\theta,h)
 \approx
-\sum_{i=1}^{N_u}
 \sum_{j=1}^{N_v}
 \sum_{k=1}^{N_s}
-I_{\mathrm{sub}}(u_i,v_j,s_k;\theta)
-\Delta V_{ijk}.
-$$
-
-Equivalently,
-
-$$
-V_{\mathrm{sub}}(\theta)
-\approx
-\sum_{i=1}^{N_u}
-\sum_{j=1}^{N_v}
-\sum_{k=1}^{N_s}
-I_{\mathrm{sub}}(u_i,v_j,s_k;\theta)
+L_{u,jk}
 s_k(R+s_k\cos v_j)
-\Delta s\,\Delta v\,\Delta u.
+\Delta s\,\Delta v.
 $$
 
-When every point is included, the same summation approximates the full torus volume
+This semi-analytical formulation allows the submerged angular fraction to vary continuously with the floating height. It therefore avoids the large volume steps produced when an entire three-dimensional cell is classified as either submerged or unsubmerged.
 
-$$
-V_{\mathrm{torus}} = 
-2\pi^2Rr^2.
-$$
-
-This provides a numerical check for the discretization:
-
-$$
-\varepsilon_V = 
-\frac{
-\left|
-V_{\mathrm{numerical}} - 
-2\pi^2Rr^2
-\right|
-}{
-2\pi^2Rr^2
-}.
-$$
 
 As the grid resolution increases,
 
@@ -515,25 +521,75 @@ z_B =
 Z\,dV.
 $$
 
-Since the submerged region generally has no closed-form analytical boundary, these volume integrals are evaluated numerically using the same midpoint discretization introduced in Section 3.3.
+The first moments are evaluated using the same semi-analytical integration method introduced in Section 3.3. For every midpoint $(v_j,s_k)$ in the tube cross-section, the submerged interval in $u$ is determined analytically.
 
-Using the midpoint approximation, the coordinates become
+In addition to the submerged angular length,
 
 $$
-x_B
+L_u=
+\int_{\{u:Z\le0\}}du,
+$$
+
+the calculation uses
+
+$$
+C_u=
+\int_{\{u:Z\le0\}}\cos u\,du.
+$$
+
+Since
+
+$$
+X=
+q\cos\theta\cos u
++w\sin\theta,
+$$
+
+the submerged first moment in the global $x$-direction is approximated by
+
+$$
+\iiint_{\Omega_{\mathrm{sub}}}X\,dV
 \approx
-\frac{
-\sum X_{ijk} I_{\mathrm{sub},ijk}\Delta V_{ijk}
-}{
-V_{\mathrm{sub}}
-},
+\sum_{j=1}^{N_v}
+\sum_{k=1}^{N_s}
+s_kq_{jk}
+\left(
+q_{jk}\cos\theta\,C_{u,jk}
++
+w_{jk}\sin\theta\,L_{u,jk}
+\right)
+\Delta s\,\Delta v.
 $$
 
+Similarly, because
+
 $$
-y_B
+Z=
+C_{jk}\cos u+D_{jk},
+$$
+
+the submerged first moment in the global $z$-direction is approximated by
+
+$$
+\iiint_{\Omega_{\mathrm{sub}}}Z\,dV
 \approx
+\sum_{j=1}^{N_v}
+\sum_{k=1}^{N_s}
+s_kq_{jk}
+\left(
+C_{jk}C_{u,jk}
++
+D_{jk}L_{u,jk}
+\right)
+\Delta s\,\Delta v.
+$$
+
+The center-of-buoyancy coordinates are then obtained from
+
+$$
+x_B=
 \frac{
-\sum Y_{ijk} I_{\mathrm{sub},ijk}\Delta V_{ijk}
+\iiint_{\Omega_{\mathrm{sub}}}X\,dV
 }{
 V_{\mathrm{sub}}
 },
@@ -542,14 +598,21 @@ $$
 and
 
 $$
-z_B
-\approx
+z_B=
 \frac{
-\sum Z_{ijk} I_{\mathrm{sub},ijk}\Delta V_{ijk}
+\iiint_{\Omega_{\mathrm{sub}}}Z\,dV
 }{
 V_{\mathrm{sub}}
 }.
 $$
+
+Symmetry about the global $xz$-plane gives
+
+$$
+y_B=0
+$$
+
+for the configurations considered in this model.
 
 Because the buoyant force acts vertically upward through the center of buoyancy, the horizontal location of BC relative to the center of gravity determines the hydrostatic restoring arm discussed in the next section.
 
@@ -722,33 +785,72 @@ unstable configurations may occur only at large tilt angles and large positive c
 
 For each prescribed set of model parameters, the numerical procedure is:
 
-1. Specify the tilt angle $\theta$, major radius $R$, tube radius $r$, density ratio $\lambda$, and, for the general model, center-of-gravity offset $z_G$.
+1. Specify the tilt angle $\theta$, major radius $R$, tube radius $r$, density ratio $\lambda$, and center-of-gravity offset $z_G$.
 
-2. Construct a three-dimensional midpoint grid in the toroidal coordinates $(u,v,s)$.
+2. Construct a two-dimensional midpoint grid in the tube cross-section using the parameters $(v,s)$.
 
-3. Rotate the torus through angle $\theta$.
-
-4. Solve for the floating height \(h\) using the bisection method until
+3. For each cross-sectional midpoint, express the rotated vertical coordinate in the form
 
 $$
-V_{\mathrm{sub}}(h,\theta)=\lambda V_{\mathrm{torus}}.
+Z=C\cos u+D.
 $$
 
-5. Identify submerged grid cells satisfying
+4. Determine analytically the interval in $u$ for which
 
 $$
-Z(u,v,s;\theta,h)\le0.
+Z\le0.
 $$
 
-6. Compute the submerged volume and center of buoyancy from the weighted midpoint sums.
+5. Evaluate the submerged angular length
 
-7. Determine the center of gravity according to either the ideal or general mass-distribution assumption.
+$$
+L_u=
+\int_{\{u:Z\le0\}}du
+$$
 
-8. Compute the righting arm and net hydrostatic moment.
+and the cosine integral
 
-9. Classify the configuration as stable, neutral, or unstable from the sign of $\theta M_y$.
+$$
+C_u=
+\int_{\{u:Z\le0\}}\cos u\,du.
+$$
 
-The entire calculation is repeated whenever a user changes one of the interactive MATLAB controls.
+6. Use the resulting semi-analytical expressions to calculate the submerged volume for a trial floating height.
+
+7. Solve for the equilibrium floating height $h$ using the bisection method until
+
+$$
+V_{\mathrm{sub}}(h,\theta) = 
+\lambda V_{\mathrm{torus}}
+$$
+
+within the prescribed volume tolerance.
+
+8. Evaluate the first moments of the submerged volume and calculate the center of buoyancy.
+
+9. Determine the center of gravity according to either the ideal or general center-of-gravity assumption.
+
+10. Compute the signed righting arm
+
+$$
+GZ=x_B-x_G,
+$$
+
+and the hydrostatic moment
+
+$$
+M_y=-WGZ.
+$$
+
+11. Classify the configuration as stable, neutral, or unstable from the sign of
+
+$$
+\theta M_y.
+$$
+
+12. Repeat the complete calculation for every prescribed tilt angle or whenever an interactive MATLAB parameter is changed.
+
+At zero tilt, the waterline cuts the circular tube cross-section horizontally. The submerged cross-sectional area is therefore evaluated using the analytical circular-segment expression. This removes the remaining midpoint discontinuity at the symmetric upright configuration.
 
 ### MATLAB Implementation
 
@@ -764,7 +866,170 @@ A second implementation, referred to as the **General Hydrostatic Stability Mode
 
 <img width="844" height="709" alt="Animation_1" src="https://github.com/user-attachments/assets/21d5ea6c-0e98-4ed7-9513-68a0e7f39347" />
 
-### 3.11 Generation of Moment-Angle Data
+
+## 3.11 Numerical Verification
+
+Several numerical checks were performed before the hydrostatic moment-angle results were interpreted.
+
+First, the total torus volume obtained from the numerical integration was compared with the analytical expression
+
+$$
+V_{\mathrm{torus}}=
+2\pi^2Rr^2.
+$$
+
+For the baseline geometry
+
+$$
+R=0.375\ \mathrm{m},
+\qquad
+r=0.175\ \mathrm{m},
+$$
+
+the analytical and numerical volumes were
+
+$$
+V_{\mathrm{analytical}} = 
+0.2266924761\ \mathrm{m^3},
+$$
+
+and
+
+$$
+V_{\mathrm{numerical}} = 
+0.2266924761\ \mathrm{m^3}.
+$$
+
+The corresponding relative error was
+
+$$
+\varepsilon_{\mathrm{torus}} = 
+\frac{
+\left|
+V_{\mathrm{numerical}} - 
+V_{\mathrm{analytical}}
+\right|
+}{
+V_{\mathrm{analytical}}
+} = 
+2.45\times10^{-16}.
+$$
+
+This difference is at the level of floating-point roundoff and confirms that the toroidal volume element and numerical integration weights were implemented consistently.
+
+The floating-equilibrium calculation was then checked at
+
+$$
+\theta=0^\circ.
+$$
+
+For the baseline density ratio
+
+$$
+\lambda=0.010,
+$$
+
+the required displaced volume was
+
+$$
+V_{\mathrm{target}} = 
+\lambda V_{\mathrm{torus}} = 
+0.0022669248\ \mathrm{m^3}.
+$$
+
+The numerical solver obtained
+
+$$
+h=
+0.1635082744\ \mathrm{m},
+$$
+
+and
+
+$$
+V_{\mathrm{sub}} = 
+0.0022669246\ \mathrm{m^3}.
+$$
+
+At zero tilt, the symmetry of the ideal torus requires
+
+$$
+x_B=0,
+\qquad
+GZ=0,
+\qquad
+M_y=0.
+$$
+
+The numerical results satisfied all three conditions:
+
+$$
+x_B=0.000000\ \mathrm{m},
+$$
+
+$$
+GZ=0.000000\ \mathrm{m},
+$$
+
+and
+
+$$
+M_y=0.000000\ \mathrm{N\,m}.
+$$
+
+Across the complete angle range, the maximum relative displacement-volume error was
+
+$$
+\max
+\left(
+\frac{
+\left|
+V_{\mathrm{sub}} - 
+V_{\mathrm{target}}
+\right|
+}{
+V_{\mathrm{target}}
+}
+\right) = 
+9.99\times10^{-8}.
+$$
+
+The ideal model is also symmetric with respect to positive and negative tilt angles. Therefore, the hydrostatic moment should satisfy
+
+$$
+M_y(-\theta) = 
+-M_y(\theta).
+$$
+
+The maximum absolute symmetry error was
+
+$$
+5.33\times10^{-15}\ \mathrm{N\,m},
+$$
+
+while the corresponding relative symmetry error was
+
+$$
+7.03\times10^{-16}.
+$$
+
+These checks confirm that the numerical implementation satisfies the analytical torus-volume relation, Archimedes' equilibrium condition, the zero-tilt symmetry conditions, and the expected odd symmetry of the hydrostatic moment.
+
+| Numerical check | Result |
+|---|---:|
+| Analytical torus volume | $0.2266924761\ \mathrm{m^3}$ |
+| Numerical torus volume | $0.2266924761\ \mathrm{m^3}$ |
+| Relative torus-volume error | $2.45\times10^{-16}$ |
+| Zero-tilt floating height | $0.1635082744\ \mathrm{m}$ |
+| Target displaced volume | $0.0022669248\ \mathrm{m^3}$ |
+| Computed displaced volume | $0.0022669246\ \mathrm{m^3}$ |
+| Maximum relative displacement error | $9.99\times10^{-8}$ |
+| Zero-tilt righting arm | $0\ \mathrm{m}$ |
+| Zero-tilt restoring moment | $0\ \mathrm{N\,m}$ |
+| Relative moment-symmetry error | $7.03\times10^{-16}$ |
+
+
+### 3.12 Generation of Moment-Angle Data
 
 To generate the hydrostatic moment-angle relationship, the numerical procedure described in Section 3.10 is repeated over a prescribed sequence of tilt angles,
 
@@ -774,12 +1039,12 @@ $$
 
 For each angle, the equilibrium floating height is solved first. The corresponding submerged volume, center of buoyancy, center of gravity, righting arm, and signed hydrostatic moment are then evaluated.
 
-The resulting data set is
+The resulting data consist of the ordered pairs
 
 $$
-\left\{
-\left(\theta_i,M_y(\theta_i)\right)
-\right\}_{i=1}^{n}.
+(\theta_i,M_y(\theta_i)),
+\qquad
+i=1,\ldots,n.
 $$
 
 These values are stored for use in the hydrostatic results presented in Chapter 5 and in the nonlinear dynamic model developed in Chapter 4.
