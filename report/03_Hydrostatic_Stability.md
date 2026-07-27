@@ -764,3 +764,23 @@ A second implementation, referred to as the **General Hydrostatic Stability Mode
 
 <img width="844" height="709" alt="Animation_1" src="https://github.com/user-attachments/assets/21d5ea6c-0e98-4ed7-9513-68a0e7f39347" />
 
+### 3.11 Generation of Moment-Angle Data
+
+To generate the hydrostatic moment-angle relationship, the numerical procedure described in Section 3.10 is repeated over a prescribed sequence of tilt angles,
+
+$$
+\theta_1,\theta_2,\ldots,\theta_n.
+$$
+
+For each angle, the equilibrium floating height is solved first. The corresponding submerged volume, center of buoyancy, center of gravity, righting arm, and signed hydrostatic moment are then evaluated.
+
+The resulting data set is
+
+$$
+\left\{
+\left(\theta_i,M_y(\theta_i)\right)
+\right\}_{i=1}^{n}.
+$$
+
+These values are stored for use in the hydrostatic results presented in Chapter 5 and in the nonlinear dynamic model developed in Chapter 4.
+
