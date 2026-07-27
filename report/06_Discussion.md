@@ -1,5 +1,7 @@
 # Discussion
 
+One motivation for introducing the generalized mass-distribution framework was to address a limitation identified during the author's earlier IB Mathematics investigation, in which the internal mass distribution was treated as uniform.
+
 ## 6.1 Hydrostatic Results
 
 ## 6.2 Dynamic Response
