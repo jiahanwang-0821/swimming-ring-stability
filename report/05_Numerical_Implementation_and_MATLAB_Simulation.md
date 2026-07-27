@@ -8,8 +8,7 @@ The numerical implementation consists of two main components. The first componen
 
 The overall computational workflow is summarized below.
 
-、、、text
-
+```text
 Input geometry and physical parameters
                 ↓
 Generate torus geometry
@@ -27,7 +26,8 @@ Interpolation
 Dynamic ODE solver (ode45)
                 ↓
 Angular response θ(t)
-、、、
+```
+
 The hydrostatic model provides the restoring moment for each prescribed tilt angle. These numerical results are then interpolated and supplied to the dynamic solver, allowing the angular motion to be simulated continuously in time.
 
 This modular implementation separates the hydrostatic calculation from the dynamic simulation while maintaining a direct connection between the two models.
