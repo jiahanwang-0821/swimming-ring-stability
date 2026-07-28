@@ -1,4 +1,9 @@
- — Main findings
-— Mathematical significance
-   — Computational contribution
-   — Final project summary
+# Conclusion
+
+This study developed a geometry-based mathematical framework for analyzing the hydrostatic and dynamic stability of a floating torus. The geometry of the torus was first used to determine its submerged volume and center of buoyancy at different tilt angles. These quantities were then used to calculate the righting arm and restoring moment. Finally, the hydrostatic restoring moment was included in a nonlinear equation of motion to study the rotational response of the torus.
+
+The hydrostatic results show that the stability of the torus is mainly determined by the relative positions of the center of gravity and the center of buoyancy. At the upright equilibrium, these two points lie on the same vertical line, so the restoring moment is zero. As the torus tilts, the center of buoyancy moves and produces a restoring moment that initially increases in magnitude, reaches a maximum, and then gradually decreases. The results also show that the position of the center of gravity can change the equilibrium from stable to neutral or unstable. Therefore, the stability of a floating torus depends not only on its external geometry, but also on its internal mass distribution.
+
+The dynamic analysis connects this hydrostatic behavior to the motion of the torus. Because the restoring moment is obtained directly from the submerged geometry, the same physical mechanism is used in both the hydrostatic and dynamic models. This provides a consistent mathematical connection between geometry, buoyancy, restoring moment, and rotational motion. It also avoids replacing the nonlinear hydrostatic behavior with a separate empirical restoring-force approximation.
+
+MATLAB provided the computational tools needed to evaluate the submerged geometry, verify the hydrostatic calculations, generate restoring-moment curves, and solve the nonlinear equation of motion. Overall, the results demonstrate that the hydrostatic and dynamic stability of a floating torus can be studied within one unified mathematical framework. The main conclusion of this study is that changes in submerged geometry and mass distribution directly control the restoring behavior and rotational stability of the floating torus.
