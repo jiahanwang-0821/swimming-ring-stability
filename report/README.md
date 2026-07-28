@@ -1,9 +1,13 @@
 # Research Notes
 
-This folder contains mathematical derivations, modeling notes, and future project documentation.
+This folder contains mathematical derivations, modeling notes, intermediate calculations, and supporting documentation produced during the development of the Swimming Ring Stability Project.
 
-Planned topics:
-* Buoyancy analysis
-* Center of buoyancy calculation
-* Static stability analysis
-* Dynamic stability modeling
+Topics include:
+
+* toroidal geometry,
+* submerged-volume calculation,
+* center of buoyancy,
+* hydrostatic restoring moment,
+* mass-distribution models,
+* nonlinear dynamic stability,
+* numerical implementation.
