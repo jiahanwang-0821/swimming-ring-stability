@@ -80,14 +80,23 @@ The stability state is highlighted using color:
 
 The color coding is used only as a visualization aid and does not affect the underlying hydrostatic calculations.
 
+### 4. Dynamic Stability Simulation
+
+`Hydrostatic_Model.m`
+
+This script solves the nonlinear rotational equation of motion using the hydrostatic restoring-moment function obtained from the geometric model.
+
+The simulation evaluates the angular response of the torus under specified initial conditions and external rotational forcing.
+
 ---
 
 ## Relationship Between the Programs
 
 These three MATLAB programs are complementary.
 
-- **Figure 1 Visualization** generates the static illustration used in the report.
-- **Ideal Hydrostatic Model** implements the theoretical assumptions presented in Chapter 3.
-- **General Hydrostatic Stability Model** extends the theoretical framework by investigating how variations in the center of gravity influence hydrostatic stability.
+* **Figure 1 Visualization** generates the static illustration used in the report.
+* **Ideal Hydrostatic Model** implements the theoretical assumptions presented in Chapter 3.
+* **General Hydrostatic Stability Model** extends the theoretical framework by investigating how variations in the center of gravity influence hydrostatic stability.
+* **Hydrostatic_Model** simulates how restoring moment and righting arm perform along with the changes in tilt angle.
 
 Together, these programs provide both static visualization and interactive exploration of the hydrostatic behavior of floating toroidal swimming rings.
