@@ -340,16 +340,14 @@ $$
 This condition determines an interval, or a union of intervals, in the variable $u$. The total submerged angular length is denoted by
 
 $$
-L_u(v,s;\theta,h)
-=
+L_u(v,s;\theta,h) =
 \int_{\{u:Z\le0\}}du.
 $$
 
 The submerged volume can therefore be reduced from a three-dimensional integral to
 
 $$
-V_{\mathrm{sub}}(\theta,h)
-=
+V_{\mathrm{sub}}(\theta,h) = 
 \int_0^{2\pi}
 \int_0^r
 L_u(v,s;\theta,h)
